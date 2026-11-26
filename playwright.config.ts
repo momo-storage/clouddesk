@@ -6,6 +6,8 @@ const BASE_URL = `http://localhost:${PORT}`;
 /**
  * E2E·접근성 검사는 배포물과 같은 프로덕션 빌드(vite preview)를 대상으로 한다.
  * 개발 서버 전용 경고나 HMR 코드가 검사 결과에 섞이지 않게 하기 위해서다.
+ *
+ * 검증 기준 브라우저는 Chrome(Chromium) 하나다. 교차 브라우저 검증은 범위에서 제외했다(설계서 11장, 2026-11-26).
  */
 export default defineConfig({
   testDir: './tests/e2e',
@@ -19,12 +21,7 @@ export default defineConfig({
     timezoneId: 'Asia/Seoul',
     trace: 'on-first-retry',
   },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    // WebKit은 Safari 렌더링을 근사 확인하는 용도이며 실제 Safari와 동일하지 않다.
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-  ],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'npm run build && npm run preview',
     url: BASE_URL,
