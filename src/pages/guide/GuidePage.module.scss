@@ -1,0 +1,138 @@
+@use '@/styles' as *;
+
+.notice {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.toc {
+  margin-bottom: var(--space-6);
+}
+
+.tocList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    height: var(--control-height-sm);
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    background-color: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.section {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
+
+  @include bp(sm) {
+    padding: var(--space-4);
+  }
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-4);
+}
+
+.examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--space-5) var(--space-6);
+}
+
+.example {
+  min-width: 0;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.exampleLabel {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+}
+
+.exampleBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+  width: 100%;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.loadingArea {
+  width: 100%;
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.panelBox {
+  width: 100%;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.formGrid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.tableToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.mutedText {
+  color: var(--color-text-secondary);
+}
+
+.inlineForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: flex-end;
+  width: 100%;
+}

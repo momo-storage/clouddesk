@@ -1,0 +1,93 @@
+@use '@/styles' as *;
+
+.region {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 50;
+  width: 360px;
+  max-width: calc(100vw - var(--space-8));
+  pointer-events: none;
+
+  @include bp(sm) {
+    right: var(--space-4);
+    left: var(--space-4);
+    width: auto;
+    max-width: none;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toast {
+  position: relative;
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-2) var(--space-3) var(--space-4);
+  overflow: hidden;
+  pointer-events: auto;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-overlay);
+
+  // 왼쪽 색 막대 + 아이콘 + "성공:" 등 숨김 텍스트로 종류를 전달한다.
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    content: '';
+    background-color: var(--toast-color);
+  }
+}
+
+.success {
+  --toast-color: var(--color-success);
+}
+
+.error {
+  --toast-color: var(--color-danger);
+}
+
+.info {
+  --toast-color: var(--color-primary);
+}
+
+.icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--toast-color);
+}
+
+.message {
+  flex: 1;
+  min-width: 0;
+  padding-top: 1px;
+  overflow-wrap: anywhere;
+}
+
+.close {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height-sm);
+  height: var(--control-height-sm);
+  margin-top: calc(-1 * var(--space-1));
+  color: var(--color-text-secondary);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-subtle);
+  }
+}

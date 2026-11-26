@@ -206,6 +206,17 @@ test.describe('모바일 메뉴 서랍', () => {
     await expect(page.getByRole('dialog', { name: '메뉴' })).toBeHidden();
     await expect(menuButton).toBeFocused();
   });
+
+  // 모달 공통 훅의 배경 클릭 기본값이 false로 바뀐 뒤에도 서랍은 명시적으로 허용한다.
+  test('배경을 누르면 서랍이 닫히고 메뉴 버튼으로 초점이 돌아온다', async ({ page }) => {
+    await gotoAndWait(page, '/dashboard');
+    const menuButton = page.getByRole('button', { name: '주 메뉴' });
+    await menuButton.click();
+    await page.mouse.click(360, 400);
+
+    await expect(page.getByRole('dialog', { name: '메뉴' })).toBeHidden();
+    await expect(menuButton).toBeFocused();
+  });
 });
 
 test.describe('헤더 드롭다운', () => {

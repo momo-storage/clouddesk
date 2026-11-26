@@ -1,0 +1,43 @@
+.badge {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  height: 20px;
+  padding: 0 var(--space-1-5);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: var(--radius-sm);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+// 각 조합의 대비는 docs/color-contrast.md에서 검증한다.
+.neutral {
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-subtle);
+}
+
+.info {
+  color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+}
+
+.success {
+  color: var(--color-success);
+  background-color: var(--color-success-bg);
+}
+
+.warning {
+  color: var(--color-warning);
+  background-color: var(--color-warning-bg);
+}
+
+.danger {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+}

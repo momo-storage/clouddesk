@@ -9,21 +9,3 @@
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-md);
 }
-
-// 공통 Button 컴포넌트는 Phase 2-4에서 만든다. 그때 이 링크를 버튼 스타일 링크로 교체한다.
-.homeLink {
-  display: inline-flex;
-  align-items: center;
-  height: var(--control-height-md);
-  padding: 0 var(--space-4);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-inverse);
-  text-decoration: none;
-  background-color: var(--color-primary);
-  border-radius: var(--radius-md);
-
-  &:hover {
-    color: var(--color-text-inverse);
-    background-color: var(--color-primary-hover);
-  }
-}

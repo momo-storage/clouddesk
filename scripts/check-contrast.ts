@@ -101,6 +101,16 @@ const COMBINATIONS: Combination[] = [
   { fg: 'chart-aws', bg: 'surface', kind: 'non-text', usage: '차트 AWS 계열' },
   { fg: 'chart-azure', bg: 'surface', kind: 'non-text', usage: '차트 Azure 계열' },
   { fg: 'chart-gcp', bg: 'surface', kind: 'non-text', usage: '차트 GCP 계열' },
+
+  // Phase 2-4 공통 컴포넌트에서 새로 쓰는 조합
+  { fg: 'header-text', bg: 'header-bg', kind: 'text', usage: 'Tooltip 글자' },
+  { fg: 'text-primary', bg: 'surface-hover', kind: 'text', usage: 'Modal 하단 버튼 영역 글자' },
+  { fg: 'text-inverse', bg: 'primary', kind: 'text', usage: 'Pagination 현재 페이지' },
+  { fg: 'danger', bg: 'danger-bg', kind: 'text', usage: 'Dropdown 위험 항목 호버' },
+  { fg: 'border-strong', bg: 'surface', kind: 'non-text', usage: 'Switch 꺼짐 트랙' },
+  { fg: 'success', bg: 'surface', kind: 'non-text', usage: 'Toast 성공 아이콘·막대' },
+  { fg: 'danger', bg: 'surface', kind: 'non-text', usage: 'Toast 오류 아이콘·막대' },
+  { fg: 'primary', bg: 'surface', kind: 'non-text', usage: 'Toast 안내 아이콘·막대' },
 ];
 
 const projectRoot = fileURLToPath(new URL('..', import.meta.url));

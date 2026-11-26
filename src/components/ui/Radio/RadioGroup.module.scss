@@ -1,0 +1,127 @@
+@use '@/styles' as *;
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  min-width: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-1-5);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.required {
+  margin-left: var(--space-1);
+  color: var(--color-danger);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.radio {
+  position: relative;
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 24px;
+  cursor: pointer;
+
+  &:has(.input:disabled) {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: inherit;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+// 라디오는 관례상 원형으로 표시한다(모서리 4px 규칙의 예외).
+.circle {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: 50%;
+
+  &::after {
+    width: 8px;
+    height: 8px;
+    content: '';
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform var(--duration-fast) var(--easing-standard);
+  }
+
+  .radio:hover .input:not(:disabled) + & {
+    border-color: var(--color-primary);
+  }
+
+  .input:checked + & {
+    border-color: var(--color-primary);
+
+    &::after {
+      transform: scale(1);
+    }
+  }
+
+  .input:focus-visible + & {
+    @include focus-ring;
+  }
+
+  .invalid .input:not(:checked) + & {
+    border-color: var(--color-danger);
+  }
+
+  .input:disabled + & {
+    background-color: var(--color-surface-disabled);
+    border-color: var(--color-border);
+
+    &::after {
+      background-color: var(--color-text-disabled);
+    }
+  }
+}
+
+.hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.error {
+  display: flex;
+  gap: var(--space-1);
+  align-items: flex-start;
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}

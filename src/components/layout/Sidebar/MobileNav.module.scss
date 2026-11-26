@@ -35,21 +35,3 @@
 .title {
   font-weight: var(--font-weight-semibold);
 }
-
-.closeButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--control-height-md);
-  height: var(--control-height-md);
-  padding: 0;
-  color: var(--color-text-secondary);
-  background: none;
-  border: 0;
-  border-radius: var(--radius-md);
-
-  &:hover {
-    color: var(--color-text-primary);
-    background-color: var(--color-surface-hover);
-  }
-}

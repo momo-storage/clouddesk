@@ -1,0 +1,100 @@
+@use '@/styles' as *;
+
+.switch {
+  display: inline-flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: 24px;
+  cursor: pointer;
+
+  &:has(.input:disabled) {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.label {
+  font-size: var(--font-size-md);
+}
+
+.control {
+  position: relative;
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 32px;
+  height: 18px;
+  margin: 0;
+  cursor: inherit;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+// 트랙은 관례상 알약 모양으로 표시한다(모서리 4px 규칙의 예외).
+.track {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 18px;
+  background-color: var(--color-border-strong);
+  border-radius: 9px;
+  transition: background-color var(--duration-fast) var(--easing-standard);
+
+  .input:checked + & {
+    background-color: var(--color-primary);
+  }
+
+  .input:focus-visible + & {
+    @include focus-ring;
+  }
+
+  .input:disabled + & {
+    background-color: var(--color-border);
+  }
+}
+
+.thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-surface);
+  border-radius: 50%;
+  transition: transform var(--duration-fast) var(--easing-standard);
+
+  .input:checked + .track & {
+    transform: translateX(14px);
+  }
+}
+
+.stateOn,
+.stateOff {
+  min-width: 2em;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+
+  .input:disabled ~ & {
+    color: var(--color-text-disabled);
+  }
+}
+
+.stateOn {
+  display: none;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+
+  .input:checked ~ & {
+    display: inline;
+  }
+}
+
+.input:checked ~ .stateOff {
+  display: none;
+}

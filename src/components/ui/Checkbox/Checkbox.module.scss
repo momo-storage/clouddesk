@@ -1,0 +1,87 @@
+@use '@/styles' as *;
+
+// 구조: label > (투명 input + 모양 + 라벨 텍스트). Radio·Switch도 같은 구조를 쓴다.
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: 24px;
+  cursor: pointer;
+
+  &:has(.input:disabled) {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+// 실제 input은 모양 위에 투명하게 겹쳐 둔다(클릭 영역·초점 위치가 모양과 같다).
+.input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: inherit;
+  opacity: 0;
+  transform: translateY(-50%);
+}
+
+.box {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-inverse);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard);
+
+  .checkbox:hover .input:not(:disabled) + & {
+    border-color: var(--color-primary);
+  }
+
+  .input:checked + &,
+  .input:indeterminate + & {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .input:focus-visible + & {
+    @include focus-ring;
+  }
+
+  .input:disabled + & {
+    background-color: var(--color-surface-disabled);
+    border-color: var(--color-border);
+  }
+
+  .input:disabled:checked + &,
+  .input:disabled:indeterminate + & {
+    color: var(--color-text-disabled);
+  }
+}
+
+.checkIcon,
+.minusIcon {
+  display: none;
+}
+
+.input:checked:not(:indeterminate) + .box .checkIcon,
+.input:indeterminate + .box .minusIcon {
+  display: block;
+}
+
+.label {
+  font-size: var(--font-size-md);
+}
+
+.labelHidden {
+  @include visually-hidden;
+}

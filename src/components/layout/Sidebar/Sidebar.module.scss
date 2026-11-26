@@ -156,40 +156,20 @@
 }
 
 // ---------------------------------------------------------------------------
-// 접힌 상태의 툴팁
-// 바깥 span은 투명한 연결 영역(padding)을 두어 포인터가 툴팁으로 옮겨가도 사라지지 않게 한다.
+// 공통 Tooltip을 감싼 메뉴 항목. Tooltip 기본 표시(inline-flex) 대신 전체 폭을 쓴다.
+// 부모 선택자를 붙여 Tooltip 모듈보다 우선 적용되게 한다.
 // ---------------------------------------------------------------------------
-.tipAnchor {
-  position: relative;
-}
+.nav .tooltipAnchor,
+.footer .tooltipAnchor {
+  display: flex;
 
-.tooltip {
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  z-index: 1;
-  display: none;
-  padding-left: var(--space-2);
-  transform: translateY(-50%);
-
-  .tipAnchor:hover > &,
-  .tipAnchor:focus-within > & {
-    display: block;
+  > .link,
+  > .toggle {
+    flex: 1 1 auto;
   }
 
-  .tooltipsDismissed .tipAnchor > & {
-    display: none;
+  .collapsed & > .link,
+  .collapsed & > .toggle {
+    flex: none;
   }
-}
-
-.tooltipBox {
-  display: block;
-  padding: var(--space-1) var(--space-2);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-header-text);
-  white-space: nowrap;
-  background-color: var(--color-header-bg);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-overlay);
 }

@@ -1,0 +1,88 @@
+@use '@/styles' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.labelHidden {
+  @include visually-hidden;
+}
+
+.required {
+  margin-left: var(--space-1);
+  color: var(--color-danger);
+}
+
+.hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+// 오류는 색 + 아이콘 + 문구로 전달한다.
+.error {
+  display: flex;
+  gap: var(--space-1);
+  align-items: flex-start;
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+// ---------------------------------------------------------------------------
+// 텍스트 입력·선택 상자 공통 모양 (Input, Select에서 @extend 없이 클래스로 함께 쓴다)
+// ---------------------------------------------------------------------------
+.control {
+  width: 100%;
+  height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--easing-standard);
+
+  &::placeholder {
+    color: var(--color-text-tertiary);
+    opacity: 1;
+  }
+
+  // :read-only는 select에도 일치하므로 readonly 속성으로 판단한다.
+  &:hover:not(:disabled, [readonly], [aria-invalid='true']) {
+    border-color: var(--color-text-secondary);
+  }
+
+  // 초점 링(전역 :focus-visible)과 함께 테두리 색도 바꿔 입력 중인 칸을 분명히 한다.
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+
+  &:disabled {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+    background-color: var(--color-surface-disabled);
+    border-color: var(--color-border);
+  }
+}
+
+// 읽기 전용: 값은 선택·복사할 수 있고 수정만 막는다. 배경으로 편집 불가를 표시한다.
+.control[readonly]:not(:disabled) {
+  background-color: var(--color-surface-subtle);
+}

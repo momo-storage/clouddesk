@@ -7,23 +7,26 @@ import styles from './Dropdown.module.scss';
 export interface DropdownProps {
   /** 트리거 버튼의 내용. 보이는 텍스트가 없으면 VisuallyHidden으로 이름을 넣는다. */
   trigger: ReactNode;
+  /** 트리거 모양. 일반 화면에서는 getButtonClassName()을 쓴다. */
   triggerClassName?: string;
   panelClassName?: string;
   /** 패널을 트리거의 어느 쪽 끝에 맞출지 */
   align?: 'start' | 'end';
-  /** 패널 내용. close를 호출하면 패널을 닫는다(초점은 옮기지 않는다). */
+  /**
+   * 패널 내용. 항목을 실행할 때 close()를 호출한다.
+   * close()는 초점을 트리거로 돌려준다. 항목이 모달을 열면 모달이 닫힌 뒤 초점이 트리거로 돌아온다.
+   */
   children: (close: () => void) => ReactNode;
 }
 
 /**
  * 디스클로저 패턴의 드롭다운(button[aria-expanded] + 패널).
  * 링크·명령 몇 개짜리 메뉴이므로 ARIA menu(화살표 키 탐색)를 쓰지 않는다(설계서 1장 제안 5).
+ * 항목 사이는 Tab으로 이동한다.
  *
  * - ESC: 닫고 트리거로 초점 복귀
  * - 바깥 클릭: 닫음(초점은 사용자가 클릭한 곳에 둔다)
  * - Tab으로 패널 밖으로 나가면 닫음
- *
- * Phase 2-3에서는 헤더에 필요한 최소 기능만 구현했다. 상태별 스타일과 가이드 예시는 Phase 2-4에서 보완한다.
  */
 export function Dropdown({
   trigger,
@@ -34,8 +37,11 @@ export function Dropdown({
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const panelId = useId();
+  const baseId = useId();
+  const triggerId = `${baseId}-trigger`;
+  const panelId = `${baseId}-panel`;
+  // 렌더링 중 호출되는 children(close)에 넘기므로 ref 대신 id로 트리거를 찾는다.
+  const focusTrigger = () => document.getElementById(triggerId)?.focus();
 
   useEffect(() => {
     if (!open) return;
@@ -49,7 +55,7 @@ export function Dropdown({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
-        triggerRef.current?.focus();
+        document.getElementById(triggerId)?.focus();
       }
     };
 
@@ -61,12 +67,17 @@ export function Dropdown({
       document.removeEventListener('focusin', closeIfOutside);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open]);
+  }, [open, triggerId]);
+
+  const close = () => {
+    setOpen(false);
+    focusTrigger();
+  };
 
   return (
     <div ref={rootRef} className={styles.root}>
       <button
-        ref={triggerRef}
+        id={triggerId}
         type="button"
         className={triggerClassName}
         aria-expanded={open}
@@ -86,9 +97,7 @@ export function Dropdown({
           panelClassName,
         )}
       >
-        {children(() => {
-          setOpen(false);
-        })}
+        {children(close)}
       </div>
     </div>
   );

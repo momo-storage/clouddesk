@@ -1,0 +1,55 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--control-height-md);
+  height: var(--control-height-md);
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
+
+  &:hover:not(:disabled, .current) {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-subtle);
+  }
+
+  &:disabled {
+    color: var(--color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.arrow {
+  padding: 0;
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+
+  &:disabled {
+    border-color: var(--color-border);
+  }
+}
+
+// 현재 페이지: 채운 배경 + 굵기
+.current {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary);
+}
+
+.ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  color: var(--color-text-tertiary);
+}

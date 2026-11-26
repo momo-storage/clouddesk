@@ -1,0 +1,26 @@
+.wrapper {
+  position: relative;
+}
+
+.select {
+  padding-right: calc(var(--space-3) + 16px + var(--space-2));
+  appearance: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  transform: translateY(-50%);
+
+  .select:disabled + & {
+    color: var(--color-text-disabled);
+  }
+}

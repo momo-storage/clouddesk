@@ -7,7 +7,7 @@
 - 대상: 실제 화면에서 함께 쓰이는 전경색·배경색 조합(설계서 8-3). 비활성 요소는 WCAG 예외라 제외
 - 한계: 토큰 값끼리의 계산입니다. 투명도·그림자·이미지 위 글자 등 렌더링 결과는 화면 구현 후 axe와 수동 검사로 확인합니다.
 
-**49개 조합 중 49개 통과, 0개 미달**
+**57개 조합 중 57개 통과, 0개 미달**
 
 | 용도 | 전경 | 배경 | 구분 | 대비 | 기준 | 결과 |
 | --- | --- | --- | --- | --: | --: | --- |
@@ -60,3 +60,11 @@
 | 차트 AWS 계열 | `chart-aws` #c2410c | `surface` #ffffff | 비텍스트 | 5.18:1 | 3:1 | 통과 |
 | 차트 Azure 계열 | `chart-azure` #2563eb | `surface` #ffffff | 비텍스트 | 5.17:1 | 3:1 | 통과 |
 | 차트 GCP 계열 | `chart-gcp` #0f766e | `surface` #ffffff | 비텍스트 | 5.47:1 | 3:1 | 통과 |
+| Tooltip 글자 | `header-text` #ffffff | `header-bg` #13213c | 텍스트 | 16.02:1 | 4.5:1 | 통과 |
+| Modal 하단 버튼 영역 글자 | `text-primary` #1b2230 | `surface-hover` #f6f8fb | 텍스트 | 14.98:1 | 4.5:1 | 통과 |
+| Pagination 현재 페이지 | `text-inverse` #ffffff | `primary` #1d4ed8 | 텍스트 | 6.70:1 | 4.5:1 | 통과 |
+| Dropdown 위험 항목 호버 | `danger` #b4232a | `danger-bg` #fdecec | 텍스트 | 5.72:1 | 4.5:1 | 통과 |
+| Switch 꺼짐 트랙 | `border-strong` #7d8796 | `surface` #ffffff | 비텍스트 | 3.63:1 | 3:1 | 통과 |
+| Toast 성공 아이콘·막대 | `success` #1a7f37 | `surface` #ffffff | 비텍스트 | 5.08:1 | 3:1 | 통과 |
+| Toast 오류 아이콘·막대 | `danger` #b4232a | `surface` #ffffff | 비텍스트 | 6.53:1 | 3:1 | 통과 |
+| Toast 안내 아이콘·막대 | `primary` #1d4ed8 | `surface` #ffffff | 비텍스트 | 6.70:1 | 3:1 | 통과 |

@@ -2,7 +2,8 @@ import { Bell, ChevronDown, Cloud, Component, Menu } from 'lucide-react';
 import type { Ref } from 'react';
 import { Link } from 'react-router';
 
-import { Dropdown } from '@/components/ui/Dropdown';
+import { Badge } from '@/components/ui/Badge';
+import { Dropdown, DropdownLinkItem, DropdownList } from '@/components/ui/Dropdown';
 import { VisuallyHidden } from '@/components/ui/VisuallyHidden';
 import { HOME_PATH } from '@/constants/navigation';
 import { CURRENT_USER } from '@/mocks/currentUser';
@@ -42,7 +43,7 @@ export function Header({ showMenuButton, menuOpen, onMenuClick, menuButtonRef }:
           </span>
           CloudDesk
         </Link>
-        <span className={styles.demoBadge}>데모</span>
+        <Badge className={styles.demoBadge}>데모</Badge>
       </div>
 
       <div className={styles.actions}>
@@ -87,14 +88,11 @@ export function Header({ showMenuButton, menuOpen, onMenuClick, menuButtonRef }:
                 <p className={styles.profileMeta}>{CURRENT_USER.email}</p>
                 <p className={styles.profileMeta}>역할: {CURRENT_USER.role}</p>
               </div>
-              <ul className={styles.menuList}>
-                <li>
-                  <Link to="/guide" className={styles.menuLink} onClick={close}>
-                    <Component size={16} aria-hidden="true" />
-                    UI 컴포넌트 가이드
-                  </Link>
-                </li>
-              </ul>
+              <DropdownList>
+                <DropdownLinkItem to="/guide" icon={Component} onClick={close}>
+                  UI 컴포넌트 가이드
+                </DropdownLinkItem>
+              </DropdownList>
             </>
           )}
         </Dropdown>

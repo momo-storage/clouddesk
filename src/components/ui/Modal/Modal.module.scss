@@ -1,0 +1,95 @@
+@use '@/styles' as *;
+
+.dialog {
+  // 화면 위아래 여백을 뺀 최대 높이. 내용 영역(.panel)은 여기서 테두리 두께를 한 번 더 뺀다.
+  --modal-max-height: calc(100dvh - var(--space-8));
+
+  // 전역 reset(* { margin: 0 })이 dialog의 기본 가운데 정렬(margin: auto)을 없애므로 다시 지정한다.
+  margin: auto;
+  width: calc(100% - var(--space-8));
+  max-height: var(--modal-max-height);
+  padding: 0;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-overlay);
+
+  &::backdrop {
+    // ::backdrop이 :root의 Custom Property를 상속하지 않는 브라우저를 위한 대체값
+    background-color: var(--color-backdrop, rgb(19 33 60 / 50%));
+  }
+
+  @include bp(xs) {
+    width: calc(100% - var(--space-4));
+  }
+}
+
+.sm {
+  max-width: 400px;
+}
+
+.md {
+  max-width: 560px;
+}
+
+.lg {
+  max-width: 720px;
+}
+
+// 배경막 클릭 판별을 위해 내용 영역이 dialog를 꽉 채운다.
+// dialog의 max-height에는 위아래 테두리가 포함되므로 그만큼 빼야 dialog 자체가 스크롤되지 않는다
+// (본문만 스크롤되는 단일 스크롤 영역 유지).
+.panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--modal-max-height) - 2 * var(--border-width));
+}
+
+.header {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-3) var(--space-5);
+}
+
+.heading {
+  min-width: 0;
+  padding-top: var(--space-1);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+}
+
+.description {
+  margin-top: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.closeButton {
+  margin-right: calc(-1 * var(--space-1));
+}
+
+// 내용이 길면 본문만 스크롤한다(제목·버튼은 고정).
+.body {
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-1) var(--space-5) var(--space-5);
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-surface-hover);
+  border-top: var(--border-width) solid var(--color-border);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}

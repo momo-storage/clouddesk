@@ -1,0 +1,54 @@
+.anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+// 바깥 span의 padding은 트리거와 툴팁 사이 투명 연결 영역이다.
+// 포인터가 이 영역을 지나 툴팁 위로 가도 hover가 유지된다.
+.tooltip {
+  position: absolute;
+  z-index: 20;
+  display: none;
+  pointer-events: auto;
+}
+
+.visible {
+  display: block;
+}
+
+.top {
+  bottom: 100%;
+  left: 50%;
+  padding-bottom: var(--space-1-5);
+  transform: translateX(-50%);
+}
+
+.bottom {
+  top: 100%;
+  left: 50%;
+  padding-top: var(--space-1-5);
+  transform: translateX(-50%);
+}
+
+.right {
+  top: 50%;
+  left: 100%;
+  padding-left: var(--space-2);
+  transform: translateY(-50%);
+}
+
+// 짧은 문구는 한 줄, 긴 문구는 최대 280px에서 줄바꿈한다. 좁은 화면에서는 화면 폭 안으로 줄인다.
+.box {
+  display: block;
+  width: max-content;
+  max-width: min(280px, calc(100vw - var(--space-4)));
+  overflow-wrap: break-word;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-heading);
+  color: var(--color-header-text);
+  background-color: var(--color-header-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-overlay);
+}

@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { Link, useLocation } from 'react-router';
 
+import { Tooltip } from '@/components/ui/Tooltip';
 import { VISIBLE_NAVIGATION } from '@/constants/navigation';
 import { cn } from '@/utils/cn';
 
@@ -12,8 +13,6 @@ export interface SidebarNavProps {
   collapsed?: boolean;
   /** 메뉴 링크를 눌렀을 때(서랍을 닫는 데 쓴다) */
   onNavigate?: () => void;
-  /** 메뉴 항목에 포인터나 초점이 들어올 때(ESC로 숨긴 툴팁을 다시 허용하는 데 쓴다) */
-  onItemEnter?: () => void;
 }
 
 /**
@@ -28,7 +27,7 @@ function getCurrentState(pathname: string, path: string): 'page' | 'true' | unde
 }
 
 /** 데스크톱 사이드바와 모바일 서랍이 함께 쓰는 주 메뉴 */
-export function SidebarNav({ id, collapsed = false, onNavigate, onItemEnter }: SidebarNavProps) {
+export function SidebarNav({ id, collapsed = false, onNavigate }: SidebarNavProps) {
   const { pathname } = useLocation();
   const baseId = useId();
 
@@ -45,25 +44,30 @@ export function SidebarNav({ id, collapsed = false, onNavigate, onItemEnter }: S
               {group.items.map((item) => {
                 const current = getCurrentState(pathname, item.path);
                 const Icon = item.icon;
+                const link = (
+                  <Link
+                    to={item.path}
+                    aria-current={current}
+                    className={cn(styles.link, current && styles.active)}
+                    onClick={onNavigate}
+                  >
+                    <Icon size={18} className={styles.icon} aria-hidden="true" />
+                    <span className={styles.label}>{item.label}</span>
+                  </Link>
+                );
                 return (
-                  <li key={item.path} className={styles.tipAnchor}>
-                    <Link
-                      to={item.path}
-                      aria-current={current}
-                      className={cn(styles.link, current && styles.active)}
-                      onClick={onNavigate}
-                      onMouseEnter={onItemEnter}
-                      onFocus={onItemEnter}
+                  <li key={item.path}>
+                    {/* 링크 이름과 같은 내용을 보여주기만 하므로 label 종류(낭독기에서 숨김)로 쓴다.
+                        펼친 상태에서는 이름이 보이므로 끈다. */}
+                    <Tooltip
+                      content={item.label}
+                      placement="right"
+                      kind="label"
+                      disabled={!collapsed}
+                      className={styles.tooltipAnchor}
                     >
-                      <Icon size={18} className={styles.icon} aria-hidden="true" />
-                      <span className={styles.label}>{item.label}</span>
-                    </Link>
-                    {collapsed && (
-                      // 링크 이름과 같은 내용을 보여주기만 하므로 낭독기에서는 숨긴다.
-                      <span className={styles.tooltip} aria-hidden="true">
-                        <span className={styles.tooltipBox}>{item.label}</span>
-                      </span>
-                    )}
+                      {link}
+                    </Tooltip>
                   </li>
                 );
               })}

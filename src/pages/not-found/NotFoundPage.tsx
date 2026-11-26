@@ -1,6 +1,7 @@
-import { Link } from 'react-router';
+import { LayoutDashboard } from 'lucide-react';
 
 import { PageHeader } from '@/components/layout/PageHeader';
+import { ButtonLink } from '@/components/ui/Button';
 import { HOME_PATH } from '@/constants/navigation';
 
 import styles from './NotFoundPage.module.scss';
@@ -14,9 +15,9 @@ export function NotFoundPage() {
       />
       <div className={styles.panel}>
         <p>주소를 다시 확인하거나 대시보드에서 원하는 메뉴로 이동하세요.</p>
-        <Link to={HOME_PATH} className={styles.homeLink}>
+        <ButtonLink to={HOME_PATH} variant="primary" icon={LayoutDashboard}>
           대시보드로 이동
-        </Link>
+        </ButtonLink>
       </div>
     </>
   );
