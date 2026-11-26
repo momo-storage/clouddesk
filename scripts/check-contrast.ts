@@ -111,6 +111,15 @@ const COMBINATIONS: Combination[] = [
   { fg: 'success', bg: 'surface', kind: 'non-text', usage: 'Toast 성공 아이콘·막대' },
   { fg: 'danger', bg: 'surface', kind: 'non-text', usage: 'Toast 오류 아이콘·막대' },
   { fg: 'primary', bg: 'surface', kind: 'non-text', usage: 'Toast 안내 아이콘·막대' },
+
+  // Phase 3-1 대시보드 차트
+  { fg: 'chart-cpu', bg: 'surface', kind: 'non-text', usage: '차트 CPU 선' },
+  { fg: 'chart-memory', bg: 'surface', kind: 'non-text', usage: '차트 메모리 선' },
+  { fg: 'success', bg: 'surface', kind: 'non-text', usage: '차트 실행 중 막대' },
+  { fg: 'warning', bg: 'surface', kind: 'non-text', usage: '차트 전환 중 막대·경고 기준선' },
+  { fg: 'danger', bg: 'surface', kind: 'non-text', usage: '차트 오류 막대·위험 기준선' },
+  { fg: 'border-strong', bg: 'surface', kind: 'non-text', usage: '차트 중지됨 막대' },
+  { fg: 'text-secondary', bg: 'surface', kind: 'text', usage: '차트 축 눈금 글자' },
 ];
 
 const projectRoot = fileURLToPath(new URL('..', import.meta.url));

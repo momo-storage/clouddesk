@@ -2,7 +2,7 @@
 // 크기는 px로 정의하고 Custom Property로 출력할 때 rem으로 바꾼다(1rem = 16px).
 // rem을 써야 브라우저 글자 크기 설정을 따른다.
 //
-// 용도: xs 12 보조 메타 / sm 13 라벨 / md 14 본문 기본 / lg 16 섹션 제목 / 3xl 24 페이지 제목(h1)
+// 용도: xs 12 보조 메타 / sm 13 라벨 / md 14 본문 기본 / lg 16 섹션 제목 / 3xl 24 페이지 제목(h1) / display 28 KPI 수치
 
 $font-family: (
   'sans': (
@@ -29,6 +29,8 @@ $font-size: (
   'xl': 18,
   '2xl': 20,
   '3xl': 24,
+  // 요약 지표(KPI) 수치 전용. 화면의 핵심 숫자를 한눈에 읽게 한다.
+  'display': 28,
 );
 
 $font-weight: (

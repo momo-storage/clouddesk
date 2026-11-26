@@ -1,0 +1,52 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+// 제목 영역과 내용 영역은 구분선 없이 여백으로 나눈다. 표가 꽉 차는 영역(flush)만 표 머리글이 경계가 된다.
+.header {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5) var(--space-3);
+}
+
+.heading {
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+}
+
+.description {
+  margin-top: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--control-height-sm);
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+.flush {
+  padding: 0;
+  border-top: var(--border-width) solid var(--color-border);
+}

@@ -9,7 +9,8 @@
 // - border: 장식용 구분선(3:1 미만). 경계 인식이 필요한 곳에는 border-strong을 쓴다.
 // - border-strong: 입력 필드·체크박스 등 비텍스트 대비 3:1이 필요한 경계
 // - primary-subtle: 활성 메뉴, 선택 행, 정보 배지 배경
-// - chart-*: 제공업체 구분용 범주색. 범례·직접 레이블과 함께 써서 색에만 의존하지 않는다.
+// - chart-aws/azure/gcp: 제공업체 구분용 범주색, chart-cpu/memory: 사용률 지표 구분색.
+//   범례·직접 레이블·대체 데이터 표와 함께 써서 색에만 의존하지 않는다.
 
 $color: (
   'bg': #f4f6f9,
@@ -52,4 +53,7 @@ $color: (
   'chart-aws': #c2410c,
   'chart-azure': #2563eb,
   'chart-gcp': #0f766e,
+  // 사용률 추이 차트의 지표 구분(제공업체 색과 겹치지 않게 따로 둔다)
+  'chart-cpu': #1d4ed8,
+  'chart-memory': #7c3aed,
 );

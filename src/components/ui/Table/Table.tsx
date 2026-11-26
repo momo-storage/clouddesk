@@ -1,5 +1,5 @@
-import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
-import { useId, type ComponentProps, type ReactNode } from 'react';
+import { ArrowDown, ArrowUp, ArrowUpDown, MoveHorizontal } from 'lucide-react';
+import { useEffect, useId, useRef, useState, type ComponentProps, type ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -22,24 +22,51 @@ export interface TableProps {
  * 정렬·선택·페이지 상태는 DataTable(TanStack Table)에서 다룬다.
  *
  * 스크롤 영역은 키보드로 스크롤할 수 있도록 tabIndex=0과 이름(region)을 준다.
+ * 표가 영역보다 넓어 가로로 스크롤해야 할 때만 위쪽에 안내 문구를 보여주고, 스크롤 영역의 설명으로 연결한다.
  */
 export function Table({ caption, hideCaption = false, minWidth, children, className }: TableProps) {
   const captionId = useId();
+  const hintId = useId();
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [scrollable, setScrollable] = useState(false);
+
+  // 화면 폭이 바뀌면 다시 판단한다. ResizeObserver는 관찰을 시작할 때도 한 번 알려 준다.
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    const observer = new ResizeObserver(() => {
+      setScrollable(scroller.scrollWidth > scroller.clientWidth + 1);
+    });
+    observer.observe(scroller);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
-    <div
-      role="region"
-      aria-labelledby={captionId}
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- 가로 스크롤 영역을 키보드로 스크롤하기 위해 필요하다(WCAG 2.1.1).
-      tabIndex={0}
-      className={cn(styles.scroller, className)}
-    >
-      <table className={styles.table} style={minWidth ? { minWidth } : undefined}>
-        <caption id={captionId} className={hideCaption ? styles.captionHidden : styles.caption}>
-          {caption}
-        </caption>
-        {children}
-      </table>
+    <div className={styles.container}>
+      {scrollable && (
+        <p id={hintId} className={styles.scrollHint}>
+          <MoveHorizontal size={14} aria-hidden="true" />
+          표를 좌우로 스크롤하면 모든 열을 볼 수 있습니다.
+        </p>
+      )}
+      <div
+        ref={scrollerRef}
+        role="region"
+        aria-labelledby={captionId}
+        aria-describedby={scrollable ? hintId : undefined}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- 가로 스크롤 영역을 키보드로 스크롤하기 위해 필요하다(WCAG 2.1.1).
+        tabIndex={0}
+        className={cn(styles.scroller, className)}
+      >
+        <table className={styles.table} style={minWidth ? { minWidth } : undefined}>
+          <caption id={captionId} className={hideCaption ? styles.captionHidden : styles.caption}>
+            {caption}
+          </caption>
+          {children}
+        </table>
+      </div>
     </div>
   );
 }

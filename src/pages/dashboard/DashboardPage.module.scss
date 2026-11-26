@@ -1,0 +1,154 @@
+@use '@/styles' as *;
+
+.asOf {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+// 데모 안내 한 줄(설계서 3-1). 경고가 아닌 안내이므로 강조색을 쓰지 않는다.
+.demoNotice {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  margin: calc(-1 * var(--space-2)) 0 var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.demoIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-primary);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+// 지표 4열(1280px 이상) → 2열(1279px 이하) → 1열(767px 이하) (설계서 7-3)
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include bp(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include bp(sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// 요약 지표 카드의 오류 리소스 알림: 위험 색 + 아이콘 + 글자, 오류 목록으로 이동
+.kpiAlert {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-danger);
+  text-decoration: none;
+  background-color: var(--color-danger-bg);
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    color: var(--color-danger);
+    text-decoration: underline;
+  }
+}
+
+.kpiOk {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.kpiSkeleton {
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+// 차트 2열(1280px 이상) → 1열(1279px 이하). 기본값 뒤에 미디어 쿼리를 두어 덮어쓰게 한다.
+.rowWide,
+.rowEven {
+  display: grid;
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+.rowWide {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+
+.rowEven {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rowWide,
+.rowEven {
+  @include bp(lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// 차트 요약 문장: 차트의 핵심을 글로 먼저 전달한다(설계서 6-3 ChartDataTable 요약).
+.chartSummary {
+  max-width: 72ch;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  padding: var(--space-8) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+// 패널 안에 꽉 차는 표: 패널 테두리와 겹치지 않게 표 자체의 테두리를 없앤다.
+.flushTable {
+  border: 0;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.tableSkeleton {
+  padding: var(--space-3) var(--space-4);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.subText,
+.subTextMono {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.subTextMono {
+  font-family: var(--font-family-mono);
+}
+
+.muted {
+  color: var(--color-text-tertiary);
+}

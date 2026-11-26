@@ -1,6 +1,7 @@
-import { Bell, CircleAlert, Info, TriangleAlert, type LucideIcon } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import { useState } from 'react';
 
+import { SEVERITY_STYLE } from '@/components/data/SeverityBadge';
 import { Button } from '@/components/ui/Button';
 import { Dropdown } from '@/components/ui/Dropdown';
 import { VisuallyHidden } from '@/components/ui/VisuallyHidden';
@@ -8,19 +9,12 @@ import { PROVIDERS } from '@/constants/providers';
 import { EVENT_SEVERITY_LABEL } from '@/constants/resourceStatus';
 import { useDemoData } from '@/store/demoData/demoDataContext';
 import { useToast } from '@/store/toast/toastContext';
-import type { EventSeverity } from '@/types/event';
 import { cn } from '@/utils/cn';
 import { formatDateTime } from '@/utils/format';
 
 import styles from './NotificationMenu.module.scss';
 
 const RECENT_LIMIT = 5;
-
-const SEVERITY_ICON: Record<EventSeverity, LucideIcon> = {
-  critical: CircleAlert,
-  warning: TriangleAlert,
-  info: Info,
-};
 
 export interface NotificationMenuProps {
   /** 헤더의 아이콘 버튼 모양 */
@@ -95,7 +89,7 @@ export function NotificationMenu({ triggerClassName }: NotificationMenuProps) {
             <>
               <ul className={styles.list}>
                 {recentEvents.map((event) => {
-                  const Icon = SEVERITY_ICON[event.severity];
+                  const Icon = SEVERITY_STYLE[event.severity].icon;
                   return (
                     <li key={event.id} className={cn(styles.item, !event.read && styles.unread)}>
                       <Icon
