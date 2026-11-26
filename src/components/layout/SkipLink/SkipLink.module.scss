@@ -1,0 +1,21 @@
+// 초점을 받기 전에는 화면 밖에 두고, 초점을 받으면 헤더 위 왼쪽에 나타난다.
+.skipLink {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-md);
+  transform: translateY(calc(-100% - var(--space-4)));
+
+  &:focus {
+    transform: none;
+  }
+
+  &:hover {
+    color: var(--color-text-inverse);
+  }
+}

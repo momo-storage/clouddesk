@@ -1,0 +1,55 @@
+.dialog {
+  width: min(var(--sidebar-width), 85vw);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  margin: 0;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 0;
+  border-right: var(--border-width) solid var(--color-border);
+
+  &::backdrop {
+    // ::backdrop이 :root의 Custom Property를 상속하지 않는 구형 브라우저를 위한 대체값
+    background-color: var(--color-backdrop, rgb(19 33 60 / 50%));
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.closeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  padding: 0;
+  color: var(--color-text-secondary);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+  }
+}

@@ -1,0 +1,219 @@
+@use '@/styles' as *;
+
+.header {
+  // 어두운 헤더 위에서는 밝은 초점 색을 쓴다(대비 7.3:1).
+  --color-focus-ring: var(--color-header-focus-ring);
+
+  position: sticky;
+  top: 0;
+  // 본문의 고정 요소(표 머리글 등)와 Dropdown 패널보다 위에 둔다.
+  z-index: 10;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+  align-items: center;
+  height: var(--header-height);
+  padding: 0 var(--space-4);
+  color: var(--color-header-text);
+  background-color: var(--color-header-bg);
+
+  @include bp(xs) {
+    padding: 0 var(--space-3);
+  }
+}
+
+// 헤더의 아이콘 단독 버튼(메뉴, 알림)
+.iconButton {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-height-md);
+  height: var(--control-height-md);
+  padding: 0;
+  color: var(--color-header-text-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  &:hover,
+  &[aria-expanded='true'] {
+    color: var(--color-header-text);
+    background-color: var(--color-header-hover);
+  }
+}
+
+.brand {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  min-width: 0;
+}
+
+.logo {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-header-text);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-header-text);
+  }
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-md);
+}
+
+.demoBadge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 var(--space-1-5);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  color: var(--color-header-text-muted);
+  border: var(--border-width) solid var(--color-header-text-muted);
+  border-radius: var(--radius-sm);
+
+  // 320px 폭에서는 로고·메뉴·알림·사용자 아이콘만 남긴다(설계서 7-3).
+  @include bp(xs) {
+    display: none;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+  margin-left: auto;
+}
+
+.divider {
+  width: var(--border-width);
+  height: 20px;
+  margin: 0 var(--space-1);
+  background-color: var(--color-header-hover);
+}
+
+.userButton {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  height: var(--control-height-md);
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-header-text);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  &:hover,
+  &[aria-expanded='true'] {
+    background-color: var(--color-header-hover);
+  }
+
+  @include bp(sm) {
+    padding: 0 var(--space-1);
+  }
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+// 좁은 화면에서는 이름을 숨기되 버튼의 접근 가능한 이름으로는 유지한다.
+.userName {
+  @include bp(sm) {
+    @include visually-hidden;
+  }
+}
+
+.chevron {
+  color: var(--color-header-text-muted);
+
+  @include bp(sm) {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Dropdown 패널 내용
+// ---------------------------------------------------------------------------
+.notificationPanel {
+  width: 320px;
+  max-width: 100%;
+}
+
+.panelTitle {
+  padding: var(--space-3) var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.panelEmpty {
+  padding: var(--space-8) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.profile {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.profileName {
+  font-weight: var(--font-weight-semibold);
+}
+
+.profileMeta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.menuList {
+  padding: var(--space-1) 0;
+}
+
+.menuLink {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  height: var(--control-height-lg);
+  padding: 0 var(--space-4);
+  color: var(--color-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+  }
+
+  // 패널 가장자리에서 초점 링이 잘리지 않도록 안쪽에 그린다.
+  &:focus-visible {
+    @include focus-ring(-2px);
+  }
+}

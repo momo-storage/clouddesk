@@ -1,0 +1,195 @@
+@use '@/styles' as *;
+
+// ---------------------------------------------------------------------------
+// 데스크톱 사이드바
+// ---------------------------------------------------------------------------
+.sidebar {
+  position: sticky;
+  top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--sidebar-width);
+  height: calc(100dvh - var(--header-height));
+  background-color: var(--color-surface);
+  border-right: var(--border-width) solid var(--color-border);
+  transition: width var(--duration-fast) var(--easing-standard);
+}
+
+.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+// ---------------------------------------------------------------------------
+// 메뉴(데스크톱·서랍 공통)
+// ---------------------------------------------------------------------------
+.nav {
+  flex: 1;
+  padding: var(--space-2);
+  overflow-y: auto;
+
+  // 접힌 상태에서는 툴팁이 사이드바 밖으로 나와야 하므로 잘라내지 않는다.
+  .collapsed & {
+    overflow: visible;
+  }
+}
+
+.group + .group {
+  margin-top: var(--space-4);
+
+  .collapsed & {
+    padding-top: var(--space-2);
+    margin-top: var(--space-2);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+}
+
+.groupLabel {
+  display: block;
+  padding: var(--space-2) var(--space-3) var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+
+  .collapsed & {
+    @include visually-hidden;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.link {
+  position: relative;
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  height: var(--control-height-lg);
+  padding: 0 var(--space-3);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+  }
+
+  .collapsed & {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+}
+
+// 현재 위치: 배경색 + 글자 굵기 + 왼쪽 막대로 표시해 색에만 의존하지 않는다.
+.active {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-subtle);
+  }
+
+  &::before {
+    position: absolute;
+    top: var(--space-2);
+    bottom: var(--space-2);
+    left: 0;
+    width: 3px;
+    content: '';
+    background-color: var(--color-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.label {
+  @include truncate;
+
+  .collapsed & {
+    @include visually-hidden;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 접기 버튼
+// ---------------------------------------------------------------------------
+.footer {
+  padding: var(--space-2);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.toggle {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  width: 100%;
+  height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+  }
+
+  .collapsed & {
+    justify-content: center;
+    width: 40px;
+    padding: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 접힌 상태의 툴팁
+// 바깥 span은 투명한 연결 영역(padding)을 두어 포인터가 툴팁으로 옮겨가도 사라지지 않게 한다.
+// ---------------------------------------------------------------------------
+.tipAnchor {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  z-index: 1;
+  display: none;
+  padding-left: var(--space-2);
+  transform: translateY(-50%);
+
+  .tipAnchor:hover > &,
+  .tipAnchor:focus-within > & {
+    display: block;
+  }
+
+  .tooltipsDismissed .tipAnchor > & {
+    display: none;
+  }
+}
+
+.tooltipBox {
+  display: block;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-header-text);
+  white-space: nowrap;
+  background-color: var(--color-header-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-overlay);
+}

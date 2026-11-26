@@ -1,0 +1,19 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+}
+
+// 넓은 콘텐츠(테이블 등)는 이 영역 안의 스크롤 컨테이너에서만 가로로 스크롤한다.
+// min-width: 0이 없으면 flex 자식이 내용 폭만큼 늘어나 페이지 전체 가로 스크롤이 생긴다.
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--content-padding);
+}

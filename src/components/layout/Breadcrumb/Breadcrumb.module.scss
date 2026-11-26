@@ -1,0 +1,39 @@
+.breadcrumb {
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.item {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  min-width: 0;
+}
+
+.separator {
+  flex-shrink: 0;
+  color: var(--color-text-tertiary);
+}
+
+.link {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}
+
+.current {
+  color: var(--color-text-primary);
+  // 긴 리소스 ID도 줄바꿈되도록 한다(320px 리플로).
+  overflow-wrap: anywhere;
+}

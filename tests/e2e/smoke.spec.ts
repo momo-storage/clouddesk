@@ -15,9 +15,10 @@ test('첫 화면이 오류 없이 렌더링된다', async ({ page }) => {
 
   await page.goto('/');
 
-  await expect(page).toHaveTitle('CloudDesk');
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(page).toHaveTitle('대시보드 | CloudDesk');
   await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
-  await expect(page.getByRole('heading', { level: 1, name: 'CloudDesk' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: '대시보드' })).toBeVisible();
   expect(consoleErrors).toEqual([]);
 });
 

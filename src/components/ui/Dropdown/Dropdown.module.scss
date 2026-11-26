@@ -1,0 +1,27 @@
+.root {
+  position: relative;
+}
+
+.panel {
+  // 패널은 흰 면이므로, 어두운 헤더 안에서 열려도 기본 초점 색을 쓴다.
+  --color-focus-ring: var(--color-primary);
+
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  z-index: 1;
+  min-width: 240px;
+  max-width: calc(100vw - var(--space-4));
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-overlay);
+}
+
+.alignStart {
+  left: 0;
+}
+
+.alignEnd {
+  right: 0;
+}

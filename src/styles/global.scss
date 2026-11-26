@@ -51,3 +51,8 @@ body {
 :focus-visible {
   @include focus-ring;
 }
+
+// 모달 dialog(메뉴 서랍, 이후 Modal)가 열려 있는 동안 뒤쪽 페이지가 스크롤되지 않게 한다.
+html:has(dialog:modal) {
+  overflow: hidden;
+}
