@@ -8,12 +8,6 @@ import type { CloudProvider, Resource, SecurityRule } from '@/types/resource';
 export type Environment = 'prod' | 'stg' | 'dev';
 export type Tier = 'web' | 'app' | 'data' | 'mgmt';
 
-export const ENVIRONMENT_LABEL: Record<Environment, string> = {
-  prod: '운영',
-  stg: '스테이징',
-  dev: '개발',
-};
-
 /** 이름 규칙: {환경}-{역할}-{번호}. 규칙을 따르지 않는 이름은 운영 환경으로 본다. */
 export function getEnvironment(name: string): Environment {
   if (name.startsWith('stg-')) return 'stg';
