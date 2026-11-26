@@ -41,9 +41,9 @@ export default defineConfig([
     },
   },
 
-  // Node 환경에서 실행되는 설정 파일과 E2E 테스트
+  // Node 환경에서 실행되는 설정 파일, 스크립트, E2E 테스트
   {
-    files: ['*.config.{js,ts}', 'tests/**/*.ts'],
+    files: ['*.config.{js,ts}', 'scripts/**/*.ts', 'tests/**/*.ts'],
     extends: [js.configs.recommended, tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       globals: globals.node,

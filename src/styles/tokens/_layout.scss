@@ -1,0 +1,21 @@
+// 레이아웃·크기 토큰
+
+$header-height: 48px;
+$sidebar-width: 240px;
+$sidebar-width-collapsed: 56px;
+$table-row-height: 40px;
+
+// 컨트롤 높이. 가장 작은 sm(28px)도 WCAG 2.2 대상 크기 최소(24px)를 넘는다.
+$control-height: (
+  'sm': 28px,
+  'md': 32px,
+  'lg': 36px,
+);
+
+// 본문 여백은 화면 폭에 따라 바뀐다. 기본값과 브레이크포인트별 값(설계서 7-3).
+$content-padding: 24px;
+$content-padding-by-bp: (
+  'lg': 20px,
+  'md': 16px,
+  'xs': 12px,
+);

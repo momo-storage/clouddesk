@@ -1,0 +1,53 @@
+// 전역 스타일 진입점. main.tsx에서 한 번만 불러온다.
+// 문서 전체에 적용되는 기본값(글꼴, 색, 제목, 링크, 초점 표시)만 둔다.
+// 특정 화면이나 컴포넌트의 모양은 각 컴포넌트의 *.module.scss에서 정의한다.
+@use 'base';
+@use 'mixins' as *;
+
+html {
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  // 숫자 폭을 고정해 표·지표의 자릿수가 세로로 맞게 한다.
+  font-variant-numeric: tabular-nums;
+}
+
+// 제목 기본값: 페이지 제목(h1) 24, 섹션 제목(h2) 16, 카드 제목(h3 이하) 14 (설계서 7-4)
+:where(h1, h2, h3, h4, h5, h6) {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+}
+
+:where(h1) {
+  font-size: var(--font-size-3xl);
+}
+
+:where(h2) {
+  font-size: var(--font-size-lg);
+}
+
+:where(a) {
+  color: var(--color-primary);
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+:where(code, kbd, samp, pre) {
+  font-family: var(--font-family-mono);
+}
+
+// 모든 요소의 키보드 초점 표시. 마우스 클릭에는 나타나지 않는다(:focus-visible).
+:focus-visible {
+  @include focus-ring;
+}

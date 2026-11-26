@@ -1,0 +1,4 @@
+// 모션 토큰. 150ms 이하만 쓰고, prefers-reduced-motion에서는 0으로 바뀐다(base.scss).
+
+$duration-fast: 150ms;
+$easing-standard: ease-out;

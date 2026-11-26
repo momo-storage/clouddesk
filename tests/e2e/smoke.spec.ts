@@ -23,6 +23,8 @@ test('첫 화면이 오류 없이 렌더링된다', async ({ page }) => {
 
 test('첫 화면에 axe 자동 검사 위반이 없다', async ({ page }) => {
   await page.goto('/');
+  // React 렌더링 전에 검사하면 빈 #root를 검사하고 통과하므로, 콘텐츠가 나타난 뒤 검사한다.
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])

@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use 'tokens/breakpoints' as *;
+
+// 브레이크포인트 이하 폭에 스타일을 적용한다. PC 우선(max-width).
+// 예: @include bp(md) { ... }  → 1023px 이하
+@mixin bp($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error '알 수 없는 브레이크포인트 `#{$name}`. 사용 가능: #{map.keys($breakpoints)}';
+  }
+
+  @media (max-width: map.get($breakpoints, $name)) {
+    @content;
+  }
+}
+
+// 공통 초점 표시. 전역 :focus-visible(global.scss)에 이미 적용되므로,
+// 컴포넌트는 오프셋을 바꿔야 할 때(가로 스크롤 영역 안처럼 바깥 링이 잘리는 곳)만 직접 쓴다.
+// 색은 --color-focus-ring을 따른다. 헤더처럼 배경이 어두운 영역은 그 범위에서 이 변수를 바꾼다.
+// outline을 쓰므로 Windows 고대비(강제 색상) 모드에서도 초점 표시가 유지된다.
+@mixin focus-ring($offset: 2px) {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: $offset;
+}
+
+// 화면에는 숨기고 화면 낭독기에는 전달한다. display:none, visibility:hidden과 다르다.
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// 한 줄 말줄임. 부모가 flex/grid면 이 요소나 부모에 min-width: 0이 필요하다.
+// 잘린 전체 텍스트를 title 속성에 의존해 보여주지 않는다(설계서 7-4).
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

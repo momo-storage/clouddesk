@@ -1,0 +1,159 @@
+// 토큰을 Custom Property로 출력하고, 브라우저 기본 스타일을 정리한다.
+// 이 파일은 global.scss에서 한 번만 불러온다. 컴포넌트에서 @use 하지 않는다.
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+@function -rem($px) {
+  @return math.div($px, 16) * 1rem;
+}
+
+// ---------------------------------------------------------------------------
+// 디자인 토큰 → CSS Custom Properties
+// ---------------------------------------------------------------------------
+:root {
+  @each $name, $value in $color {
+    --color-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $font-family {
+    // inspect로 따옴표를 유지한다('Pretendard Variable' 등 공백이 있는 이름).
+    --font-family-#{$name}: #{meta.inspect($value)};
+  }
+
+  @each $name, $value in $font-size {
+    --font-size-#{$name}: #{-rem($value)};
+  }
+
+  @each $name, $value in $font-weight {
+    --font-weight-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $line-height {
+    --line-height-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $space {
+    --space-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $radius {
+    --radius-#{$name}: #{$value};
+  }
+
+  --border-width: #{$border-width};
+  --shadow-overlay: #{$shadow-overlay};
+
+  --header-height: #{$header-height};
+  --sidebar-width: #{$sidebar-width};
+  --sidebar-width-collapsed: #{$sidebar-width-collapsed};
+  --table-row-height: #{$table-row-height};
+
+  @each $name, $value in $control-height {
+    --control-height-#{$name}: #{$value};
+  }
+
+  --content-padding: #{$content-padding};
+
+  @each $bp, $value in $content-padding-by-bp {
+    @include bp($bp) {
+      --content-padding: #{$value};
+    }
+  }
+
+  --duration-fast: #{$duration-fast};
+  --easing-standard: #{$easing-standard};
+}
+
+// ---------------------------------------------------------------------------
+// Reset
+// 브라우저 간 차이만 정리한다. 초점 표시(outline)는 제거하지 않는다.
+// :where()로 명시도를 0으로 두어 컴포넌트 스타일이 쉽게 덮어쓰게 한다.
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  // 모바일 가로 회전 시 글자 자동 확대를 막는다. 사용자 확대(zoom)는 막지 않는다.
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+:where(img, picture, video, canvas) {
+  display: block;
+  max-width: 100%;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+:where(
+  button:not(:disabled),
+  [type='checkbox']:not(:disabled),
+  [type='radio']:not(:disabled),
+  select:not(:disabled),
+  summary
+) {
+  cursor: pointer;
+}
+
+:where(textarea) {
+  resize: vertical;
+}
+
+// 320px 폭에서 긴 단어·ID가 레이아웃을 밀어내지 않게 한다.
+:where(p, li, dd, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+// 클래스를 준 목록만 기본 모양을 없앤다(본문 목록은 유지).
+// Safari VoiceOver는 list-style: none인 목록의 의미를 알리지 않으므로,
+// 목록 의미가 중요한 곳은 컴포넌트에서 role="list"를 함께 쓴다.
+:where(ul, ol)[class] {
+  padding: 0;
+  list-style: none;
+}
+
+:where(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+:where(fieldset) {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+// display를 지정한 클래스가 hidden 속성을 무시하지 않게 한다.
+[hidden] {
+  display: none !important;
+}
+
+// 움직임 줄이기 설정에서는 전환·애니메이션을 사실상 없앤다(외부 라이브러리 포함).
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,55 @@
+// 색상 토큰
+// - 역할 기반 이름만 쓴다. 컴포넌트는 var(--color-*)로만 참조한다.
+// - 값을 바꾸면 `npm run check:contrast`로 실제 조합의 명도 대비를 다시 확인한다.
+// - 다크 모드는 범위 밖이다. 역할 이름만 쓰므로 나중에 이 맵을 테마별로 나누면 된다.
+//
+// 용도 메모
+// - surface-subtle: 테이블 헤더, 중립 배지 / surface-hover: 행·메뉴 호버
+// - text-disabled: WCAG 대비 예외. 비활성 여부를 색만으로 구분하지 않는다.
+// - border: 장식용 구분선(3:1 미만). 경계 인식이 필요한 곳에는 border-strong을 쓴다.
+// - border-strong: 입력 필드·체크박스 등 비텍스트 대비 3:1이 필요한 경계
+// - primary-subtle: 활성 메뉴, 선택 행, 정보 배지 배경
+// - chart-*: 제공업체 구분용 범주색. 범례·직접 레이블과 함께 써서 색에만 의존하지 않는다.
+
+$color: (
+  'bg': #f4f6f9,
+  'surface': #ffffff,
+  'surface-subtle': #eef1f5,
+  'surface-hover': #f6f8fb,
+  'surface-disabled': #eef1f5,
+
+  'text-primary': #1b2230,
+  'text-secondary': #4a5363,
+  'text-tertiary': #646d7c,
+  'text-disabled': #8d95a3,
+  'text-inverse': #ffffff,
+
+  'border': #d5dae1,
+  'border-strong': #7d8796,
+
+  'primary': #1d4ed8,
+  'primary-hover': #1e40af,
+  'primary-subtle': #eaf0fd,
+
+  'success': #1a7f37,
+  'success-bg': #e8f5ec,
+  'warning': #8a5a00,
+  'warning-bg': #fff4d6,
+  'danger': #b4232a,
+  'danger-hover': #8f1c22,
+  'danger-bg': #fdecec,
+
+  'header-bg': #13213c,
+  'header-hover': #22324f,
+  'header-text': #ffffff,
+  'header-text-muted': #aeb8cc,
+  'header-focus-ring': #7fb0ff,
+
+  'focus-ring': #1d4ed8,
+
+  'backdrop': rgb(19 33 60 / 50%),
+
+  'chart-aws': #c2410c,
+  'chart-azure': #2563eb,
+  'chart-gcp': #0f766e,
+);
