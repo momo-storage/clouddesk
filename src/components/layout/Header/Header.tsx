@@ -1,14 +1,14 @@
-import { Bell, ChevronDown, Cloud, Component, Menu } from 'lucide-react';
+import { Cloud, Menu } from 'lucide-react';
 import type { Ref } from 'react';
 import { Link } from 'react-router';
 
 import { Badge } from '@/components/ui/Badge';
-import { Dropdown, DropdownLinkItem, DropdownList } from '@/components/ui/Dropdown';
 import { VisuallyHidden } from '@/components/ui/VisuallyHidden';
 import { HOME_PATH } from '@/constants/navigation';
-import { CURRENT_USER } from '@/mocks/currentUser';
 
 import styles from './Header.module.scss';
+import { NotificationMenu } from './NotificationMenu';
+import { UserMenu } from './UserMenu';
 
 export interface HeaderProps {
   /** 사이드바가 서랍으로 바뀌는 폭(≤1023px)에서 메뉴 버튼을 표시한다. */
@@ -47,55 +47,9 @@ export function Header({ showMenuButton, menuOpen, onMenuClick, menuButtonRef }:
       </div>
 
       <div className={styles.actions}>
-        <Dropdown
-          align="end"
-          triggerClassName={styles.iconButton}
-          trigger={
-            <>
-              <Bell size={18} aria-hidden="true" />
-              <VisuallyHidden>알림</VisuallyHidden>
-            </>
-          }
-        >
-          {() => (
-            <div className={styles.notificationPanel}>
-              <p className={styles.panelTitle}>알림</p>
-              <p className={styles.panelEmpty}>새 알림이 없습니다.</p>
-            </div>
-          )}
-        </Dropdown>
-
+        <NotificationMenu triggerClassName={styles.iconButton} />
         <span className={styles.divider} aria-hidden="true" />
-
-        <Dropdown
-          align="end"
-          triggerClassName={styles.userButton}
-          trigger={
-            <>
-              <span className={styles.avatar} aria-hidden="true">
-                {CURRENT_USER.name.charAt(0)}
-              </span>
-              <span className={styles.userName}>{CURRENT_USER.name}</span>
-              <VisuallyHidden>계정 메뉴</VisuallyHidden>
-              <ChevronDown size={14} className={styles.chevron} aria-hidden="true" />
-            </>
-          }
-        >
-          {(close) => (
-            <>
-              <div className={styles.profile}>
-                <p className={styles.profileName}>{CURRENT_USER.name}</p>
-                <p className={styles.profileMeta}>{CURRENT_USER.email}</p>
-                <p className={styles.profileMeta}>역할: {CURRENT_USER.role}</p>
-              </div>
-              <DropdownList>
-                <DropdownLinkItem to="/guide" icon={Component} onClick={close}>
-                  UI 컴포넌트 가이드
-                </DropdownLinkItem>
-              </DropdownList>
-            </>
-          )}
-        </Dropdown>
+        <UserMenu triggerClassName={styles.userButton} />
       </div>
     </header>
   );

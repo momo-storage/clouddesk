@@ -1,6 +1,7 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
+import { keepInViewportX } from '@/utils/keepInViewport';
 
 import styles from './Dropdown.module.scss';
 
@@ -37,6 +38,7 @@ export function Dropdown({
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const baseId = useId();
   const triggerId = `${baseId}-trigger`;
   const panelId = `${baseId}-panel`;
@@ -69,6 +71,11 @@ export function Dropdown({
     };
   }, [open, triggerId]);
 
+  // 좁은 화면에서 트리거가 가장자리에 있지 않으면 패널이 화면 밖으로 나갈 수 있어 가로 위치를 보정한다.
+  useLayoutEffect(() => {
+    if (open && panelRef.current) keepInViewportX(panelRef.current);
+  }, [open]);
+
   const close = () => {
     setOpen(false);
     focusTrigger();
@@ -89,6 +96,7 @@ export function Dropdown({
         {trigger}
       </button>
       <div
+        ref={panelRef}
         id={panelId}
         hidden={!open}
         className={cn(

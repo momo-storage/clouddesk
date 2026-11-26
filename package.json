@@ -17,6 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check:contrast": "node scripts/check-contrast.ts",
+    "check:data": "node scripts/check-mock-data.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },

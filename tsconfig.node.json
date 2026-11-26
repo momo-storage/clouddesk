@@ -21,7 +21,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "erasableSyntaxOnly": true
+    "erasableSyntaxOnly": true,
+
+    // scripts/check-mock-data.ts가 src의 타입을 가져와 검사하므로 앱과 같은 경로 별칭을 둔다.
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["vite.config.ts", "playwright.config.ts", "tests", "scripts"]
 }

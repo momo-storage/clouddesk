@@ -9,11 +9,9 @@ import {
 } from 'react';
 
 import { cn } from '@/utils/cn';
+import { keepInViewportX } from '@/utils/keepInViewport';
 
 import styles from './Tooltip.module.scss';
-
-/** 화면 가장자리와 툴팁 사이 최소 간격(px). --space-2와 같은 값 */
-const VIEWPORT_MARGIN = 8;
 
 interface TriggerProps {
   'aria-describedby'?: string;
@@ -63,18 +61,7 @@ export function Tooltip({
   // 화면 가장자리에 가까운 트리거에서 툴팁이 화면 밖으로 나가지 않도록, 보일 때 가로 위치만 안쪽으로 밀어 넣는다.
   // 위치 계산 라이브러리 없이 처리하며, 스크롤 영역에 의한 잘림은 사용 위치에서 피한다(설계서 6-4).
   useLayoutEffect(() => {
-    const box = boxRef.current;
-    if (!visible || !box) return;
-    box.style.translate = '';
-    const { left, right } = box.getBoundingClientRect();
-    const viewportRight = document.documentElement.clientWidth - VIEWPORT_MARGIN;
-    const shift =
-      left < VIEWPORT_MARGIN
-        ? VIEWPORT_MARGIN - left
-        : right > viewportRight
-          ? viewportRight - right
-          : 0;
-    if (shift !== 0) box.style.translate = `${shift}px 0`;
+    if (visible && boxRef.current) keepInViewportX(boxRef.current);
   }, [visible, content]);
 
   useEffect(() => {

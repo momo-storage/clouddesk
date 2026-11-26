@@ -1,0 +1,43 @@
+@use '@/styles' as *;
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+// 좁은 화면에서는 이름을 숨기되 버튼의 접근 가능한 이름으로는 유지한다.
+.userName {
+  @include bp(sm) {
+    @include visually-hidden;
+  }
+}
+
+.chevron {
+  color: var(--color-header-text-muted);
+
+  @include bp(sm) {
+    display: none;
+  }
+}
+
+.profile {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.profileName {
+  font-weight: var(--font-weight-semibold);
+}
+
+.profileMeta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}

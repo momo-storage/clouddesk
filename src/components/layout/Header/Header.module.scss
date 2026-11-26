@@ -24,6 +24,7 @@
 
 // 헤더의 아이콘 단독 버튼(메뉴, 알림)
 .iconButton {
+  position: relative;
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
@@ -119,67 +120,4 @@
   @include bp(sm) {
     padding: 0 var(--space-1);
   }
-}
-
-.avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-inverse);
-  background-color: var(--color-primary);
-  border-radius: var(--radius-sm);
-}
-
-// 좁은 화면에서는 이름을 숨기되 버튼의 접근 가능한 이름으로는 유지한다.
-.userName {
-  @include bp(sm) {
-    @include visually-hidden;
-  }
-}
-
-.chevron {
-  color: var(--color-header-text-muted);
-
-  @include bp(sm) {
-    display: none;
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Dropdown 패널 내용
-// ---------------------------------------------------------------------------
-.notificationPanel {
-  width: 320px;
-  max-width: 100%;
-}
-
-.panelTitle {
-  padding: var(--space-3) var(--space-4);
-  font-weight: var(--font-weight-semibold);
-  border-bottom: var(--border-width) solid var(--color-border);
-}
-
-.panelEmpty {
-  padding: var(--space-8) var(--space-4);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  text-align: center;
-}
-
-.profile {
-  padding: var(--space-3) var(--space-4);
-  border-bottom: var(--border-width) solid var(--color-border);
-}
-
-.profileName {
-  font-weight: var(--font-weight-semibold);
-}
-
-.profileMeta {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
 }

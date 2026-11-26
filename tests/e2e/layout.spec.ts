@@ -245,9 +245,9 @@ test.describe('헤더 드롭다운', () => {
   }) => {
     await gotoAndWait(page, '/dashboard');
 
-    const notifications = page.getByRole('button', { name: '알림' });
+    const notifications = page.getByRole('button', { name: /^알림/ });
     await notifications.click();
-    await expect(page.getByText('새 알림이 없습니다.')).toBeVisible();
+    await expect(page.getByRole('button', { name: '모두 읽음' })).toBeVisible();
     await page.getByRole('heading', { level: 1 }).click();
     await expect(notifications).toHaveAttribute('aria-expanded', 'false');
 
