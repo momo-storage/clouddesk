@@ -1,0 +1,32 @@
+# 의존성
+node_modules/
+
+# 빌드 결과
+dist/
+*.tsbuildinfo
+
+# Playwright 결과물
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# 환경 변수 (예시 파일만 커밋)
+.env
+.env.*
+!.env.example
+
+# 로그
+*.log
+npm-debug.log*
+
+# 배포 (Vercel CLI 로컬 설정)
+.vercel/
+
+# 에디터 및 OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
