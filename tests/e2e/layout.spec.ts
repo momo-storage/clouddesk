@@ -102,7 +102,7 @@ test.describe('라우팅과 초점 관리', () => {
   });
 
   test('없는 주소와 2차 개발 화면 주소는 404 화면을 보여준다', async ({ page }) => {
-    for (const path of ['/no-such-page', '/monitoring']) {
+    for (const path of ['/no-such-page', '/costs']) {
       await gotoAndWait(page, path);
       await expect(
         page.getByRole('heading', { level: 1, name: '페이지를 찾을 수 없습니다' }),

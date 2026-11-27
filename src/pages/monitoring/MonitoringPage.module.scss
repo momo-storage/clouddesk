@@ -1,0 +1,105 @@
+@use '@/styles' as *;
+
+.asOf {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+// 조회 조건: 제공업체 · 리소스 · 기간(대시보드·목록의 필터 영역과 같은 카드 모양)
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: flex-end;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  @include bp(sm) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.filterField {
+  width: 160px;
+
+  @include bp(sm) {
+    width: auto;
+  }
+}
+
+.resourceField {
+  width: 240px;
+
+  @include bp(sm) {
+    width: auto;
+  }
+}
+
+// 지표 4열 → 2열(1279px 이하) → 1열(767px 이하), 대시보드와 같은 규칙
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include bp(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include bp(sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.kpiSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.panelEmpty {
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.chartSummary {
+  max-width: 72ch;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  padding: var(--space-8) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.flushTable {
+  border: 0;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
