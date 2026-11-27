@@ -4,7 +4,7 @@ AWS, Microsoft Azure, Google Cloud Platform 가상 서버를 한 화면에서 �
 
 > **Mock 데이터 기반 데모입니다.** 실제 클라우드 API·백엔드·인증과 연동하지 않으며, 실제 리소스를 제어하지 않습니다. 등록·수정·삭제한 내용은 브라우저 localStorage에만 저장되고, 사용자 메뉴의 "데모 데이터 초기화"로 처음 상태로 되돌릴 수 있습니다.
 
-- 데모: 배포 후 링크 추가 예정
+- 데모: https://clouddesk-eta.vercel.app/dashboard
 - 저장소: https://github.com/momo-storage/clouddesk
 
 ## 개발 목적
