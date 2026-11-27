@@ -6,8 +6,41 @@
   color: var(--color-text-secondary);
 }
 
+// 목차: 분류 이름 + 컴포넌트 링크를 한 줄씩
 .toc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-6);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.tocGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+
+  @include bp(sm) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.tocGroupLink {
+  flex-shrink: 0;
+  width: 96px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .tocList {
@@ -135,4 +168,112 @@
   gap: var(--space-2);
   align-items: flex-end;
   width: 100%;
+}
+
+// ---------------------------------------------------------------------------
+// 분류(h2) · 컴포넌트 영역(h3)
+// ---------------------------------------------------------------------------
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+
+  @include bp(sm) {
+    gap: var(--space-8);
+  }
+}
+
+.group {
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
+}
+
+.groupHeader {
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+}
+
+.groupTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.groupDescription {
+  margin-top: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.sectionDescription {
+  margin: calc(-1 * var(--space-2)) 0 var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+// ---------------------------------------------------------------------------
+// 데이터·차트 예시
+// ---------------------------------------------------------------------------
+.flushTable {
+  border: 0;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.dangerText {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-danger);
+}
+
+.usageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  width: 100%;
+
+  @include bp(md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.dataTableDemo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+}
+
+.demoToggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+
+.tableMeta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+// 테두리 상자(panelBox) 안의 표: 표 영역 자체 테두리를 없앤다.
+.flushDataTable [role='region'] {
+  border: 0;
+  border-radius: 0;
+}
+
+.colName {
+  width: 180px;
+  max-width: 180px;
+}
+
+.nameLink {
+  @include truncate;
+
+  display: block;
+  max-width: 164px;
+  font-weight: var(--font-weight-medium);
 }

@@ -3,7 +3,6 @@ import { createBrowserRouter, redirect } from 'react-router';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { RouteFallback } from '@/components/layout/RouteFallback';
 import { HOME_PATH } from '@/constants/navigation';
-import { GuidePage } from '@/pages/guide/GuidePage';
 import { NotFoundPage } from '@/pages/not-found/NotFoundPage';
 import { ResourceListPage } from '@/pages/resources/ResourceListPage';
 
@@ -52,7 +51,10 @@ export const router = createBrowserRouter([
       },
       {
         path: 'guide',
-        element: <GuidePage />,
+        // 차트 예시를 포함하므로 다른 차트 화면처럼 나눠 불러온다.
+        lazy: async () => ({
+          Component: (await import('@/pages/guide/GuidePage')).GuidePage,
+        }),
         handle: { title: 'UI 컴포넌트 가이드' } satisfies RouteHandle,
       },
       {

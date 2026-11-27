@@ -305,7 +305,7 @@ test('Table: 정렬 상태를 aria-sort로 알리고 행 선택을 표시한다'
 test('Pagination: 현재 페이지를 알리고, 마지막 페이지에 닿으면 현재 페이지로 초점이 이동한다', async ({
   page,
 }) => {
-  const nav = page.getByRole('navigation', { name: '페이지' });
+  const nav = page.getByRole('navigation', { name: '페이지', exact: true });
   await expect(nav.getByRole('button', { name: '1 페이지', exact: true })).toHaveAttribute(
     'aria-current',
     'page',
@@ -375,4 +375,28 @@ test('Toast: 자동으로 닫힐 때는 사용자의 초점을 옮기지 않는�
   await page.clock.runFor(5100);
   await expect(toastRegion(page)).not.toContainText('리소스를 등록했습니다.');
   await expect(trigger).toBeFocused();
+});
+
+test('가이드 DataTable 예시: 정렬·선택·페이지 크기·로딩/빈 상태 전환이 실제로 동작한다', async ({
+  page,
+}) => {
+  const section = page.getByRole('region', { name: 'DataTable · FilterBar' });
+  const table = section.getByRole('table', { name: 'DataTable 예시' });
+  await expect(table.locator('tbody tr')).toHaveCount(5);
+
+  await section.getByRole('checkbox', { name: '현재 페이지 전체 선택' }).check();
+  await expect(section.getByText(/선택 5개/)).toBeVisible();
+  await section.getByRole('combobox', { name: '페이지당 행 수' }).selectOption('10');
+  await expect(table.locator('tbody tr')).toHaveCount(10);
+  await expect(section.getByText(/선택 5개/)).toBeVisible();
+
+  const nameHeader = table.getByRole('columnheader', { name: '리소스명' });
+  await nameHeader.getByRole('button').click();
+  await expect(nameHeader).toHaveAttribute('aria-sort', 'ascending');
+
+  await section.getByText('데이터 없음 상태 보기').click();
+  await expect(section.getByRole('heading', { name: '표시할 리소스가 없습니다' })).toBeVisible();
+  await section.getByText('데이터 없음 상태 보기').click();
+  await section.getByText('로딩 상태 보기').click();
+  await expect(section.getByText('불러오는 중입니다.')).toBeVisible();
 });
