@@ -13,6 +13,20 @@ async function gotoAndWait(page: Page, path: string) {
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 }
 
+/** 저장된 데모 데이터의 첫 리소스(상세 화면 경로용). 데이터가 저장될 때까지 기다린다. */
+async function firstResource(page: Page): Promise<{ id: string; name: string }> {
+  await page.goto('/resources');
+  await expect(page.getByRole('status').filter({ hasText: /전체 \d+개/ })).toBeVisible();
+  return page.evaluate(() => {
+    const data = JSON.parse(window.localStorage.getItem('clouddesk:data') ?? '{}') as {
+      resources: { id: string; name: string }[];
+    };
+    const [first] = data.resources;
+    if (!first) throw new Error('리소스가 없습니다.');
+    return first;
+  });
+}
+
 const mainNav = (page: Page) => page.getByRole('navigation', { name: '주 메뉴' });
 
 test.describe('라우팅과 초점 관리', () => {
@@ -65,19 +79,20 @@ test.describe('라우팅과 초점 관리', () => {
   test('상세 페이지는 Breadcrumb을 표시하고 상위 메뉴를 현재 섹션으로 표시한다', async ({
     page,
   }) => {
-    await gotoAndWait(page, '/resources/i-0abc123');
+    const resource = await firstResource(page);
+    await gotoAndWait(page, `/resources/${resource.id}`);
 
     const breadcrumb = page.getByRole('navigation', { name: '경로' });
     await expect(breadcrumb.getByRole('link', { name: '리소스 관리' })).toHaveAttribute(
       'href',
       '/resources',
     );
-    await expect(breadcrumb.getByText('i-0abc123')).toHaveAttribute('aria-current', 'page');
+    await expect(breadcrumb.getByText(resource.name)).toHaveAttribute('aria-current', 'page');
     await expect(mainNav(page).getByRole('link', { name: '리소스 관리' })).toHaveAttribute(
       'aria-current',
       'true',
     );
-    await expect(page).toHaveTitle('i-0abc123 | CloudDesk');
+    await expect(page).toHaveTitle(`${resource.name} | CloudDesk`);
     await expectNoAxeViolations(page);
   });
 
@@ -259,7 +274,9 @@ test.describe('반응형: 페이지 전체 가로 스크롤 없음', () => {
   for (const width of [1920, 1440, 1280, 1024, 768, 375, 320]) {
     test(`${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 });
-      await gotoAndWait(page, '/resources/i-0a1b2c3d4e5f67890');
+      const resource = await firstResource(page);
+      await gotoAndWait(page, `/resources/${resource.id}`);
+      await expect(page.getByRole('heading', { level: 1, name: resource.name })).toBeVisible();
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );

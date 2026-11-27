@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 
+import { getReturnPath } from '@/app/returnLocation';
 import { useRouteCrumbs } from '@/app/routeMeta';
 
 import styles from './Breadcrumb.module.scss';
@@ -11,6 +12,8 @@ import styles from './Breadcrumb.module.scss';
  */
 export function Breadcrumb() {
   const crumbs = useRouteCrumbs();
+  // 목록에서 넘어온 경우 상위 목록 링크에 그때의 검색·필터 조건을 붙인다(app/returnLocation.ts).
+  const location = useLocation();
   if (crumbs.length < 2) return null;
 
   return (
@@ -28,7 +31,7 @@ export function Breadcrumb() {
                   {crumb.label}
                 </span>
               ) : (
-                <Link to={crumb.pathname} className={styles.link}>
+                <Link to={getReturnPath(location.state, crumb.pathname)} className={styles.link}>
                   {crumb.label}
                 </Link>
               )}

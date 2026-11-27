@@ -32,6 +32,8 @@ export interface MetricChartProps {
   /** 사용률 차트에 경고(70%)·위험(90%) 기준선을 그린다. */
   showThresholds?: boolean;
   height?: number;
+  /** 시간축 눈금 형식. 기본은 HH:mm, 여러 날에 걸친 기간(7일)은 날짜 형식을 넘긴다. */
+  formatTick?: (iso: string) => string;
 }
 
 /** 기준선은 범례에 점선 견본으로 함께 보여준다. */
@@ -61,6 +63,7 @@ export function MetricChart({
   unit,
   showThresholds = false,
   height = 240,
+  formatTick = formatTime,
 }: MetricChartProps) {
   const formatValue = (value: number) =>
     unit === '%' ? `${formatPercent(value)}%` : `${formatPercent(value)} Mbps`;
@@ -79,7 +82,7 @@ export function MetricChart({
           <CartesianGrid vertical={false} stroke={GRID_STROKE} strokeDasharray={GRID_DASH} />
           <XAxis
             dataKey="timestamp"
-            tickFormatter={formatTime}
+            tickFormatter={formatTick}
             tick={AXIS_TICK}
             tickLine={false}
             tickMargin={TICK_MARGIN}

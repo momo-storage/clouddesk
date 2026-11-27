@@ -7,7 +7,6 @@ import { PageHeader } from '@/components/layout/PageHeader';
 import { Panel } from '@/components/layout/Panel';
 import { Button } from '@/components/ui/Button';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { ConfirmModal } from '@/components/ui/Modal';
 import { Select } from '@/components/ui/Select';
 import { PROVIDER_KEYS, PROVIDERS } from '@/constants/providers';
 import { RESOURCE_STATUS_KEYS, RESOURCE_STATUS_LABEL } from '@/constants/resourceStatus';
@@ -17,6 +16,7 @@ import type { CloudProvider, Resource, ResourceInput, ResourceStatus } from '@/t
 import { formatNumber } from '@/utils/format';
 
 import { createResourceColumns, RESOURCE_LINK_SELECTOR } from './components/resourceColumns';
+import { ResourceDeleteModal } from './components/ResourceDeleteModal';
 import { ResourceFormModal } from './components/ResourceFormModal';
 import {
   filterResources,
@@ -40,9 +40,6 @@ interface DeleteState {
   /** 단건 삭제한 행이 현재 페이지에서 몇 번째였는지(0부터) */
   rowIndex: number;
 }
-
-/** 삭제 확인 모달에 이름을 모두 나열하는 최대 개수 */
-const DELETE_NAME_LIMIT = 5;
 
 /**
  * 리소스 관리 목록(설계서 3-2).
@@ -237,8 +234,6 @@ export function ResourceListPage() {
       />
     );
 
-  const deleteTargets = deleteState.targets;
-
   return (
     <>
       <PageHeader
@@ -388,40 +383,17 @@ export function ResourceListPage() {
         fallbackFocus={() => listHeadingRef.current}
       />
 
-      <ConfirmModal
+      <ResourceDeleteModal
         open={deleteState.open}
+        targets={deleteState.targets}
+        bulk={deleteState.bulk}
+        loading={deleting}
         onClose={closeDelete}
         onConfirm={() => {
           void confirmDelete();
         }}
-        title={deleteState.bulk ? '선택한 리소스 삭제' : '리소스 삭제'}
-        confirmLabel="삭제"
-        loading={deleting}
         fallbackFocus={deleteFallbackFocus}
-      >
-        {deleteState.bulk ? (
-          <>
-            <p>선택한 리소스 {formatNumber(deleteTargets.length)}개를 삭제하시겠습니까?</p>
-            <ul className={styles.deleteList}>
-              {deleteTargets.slice(0, DELETE_NAME_LIMIT).map((resource) => (
-                <li key={resource.id}>{resource.name}</li>
-              ))}
-              {deleteTargets.length > DELETE_NAME_LIMIT && (
-                <li>외 {formatNumber(deleteTargets.length - DELETE_NAME_LIMIT)}개</li>
-              )}
-            </ul>
-          </>
-        ) : (
-          <p>
-            <strong className={styles.deleteName}>{deleteTargets[0]?.name}</strong>{' '}
-            <span className={styles.mono}>({deleteTargets[0]?.id})</span> 리소스를 삭제하시겠습니까?
-          </p>
-        )}
-        <p className={styles.deleteNote}>
-          데모 데이터에서만 삭제되며, 사용자 메뉴의 &lsquo;데모 데이터 초기화&rsquo;로 되돌릴 수
-          있습니다.
-        </p>
-      </ConfirmModal>
+      />
     </>
   );
 }

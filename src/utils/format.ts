@@ -30,6 +30,12 @@ export function formatTime(iso: string): string {
   return `${parts.hour ?? ''}:${parts.minute ?? ''}`;
 }
 
+/** MM-DD (7일처럼 여러 날에 걸친 차트의 시간축) */
+export function formatMonthDay(iso: string): string {
+  const parts = toParts(iso);
+  return `${parts.month ?? ''}-${parts.day ?? ''}`;
+}
+
 /** YYYY-MM → "2026년 11월" (짧게: "11월") */
 export function formatMonth(month: string, short = false): string {
   const [year = '', monthNumber = ''] = month.split('-');

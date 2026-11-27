@@ -1,4 +1,4 @@
-import { CategoryBarChart, CHART_COLOR } from '@/components/charts';
+import { CategoryBarChart, CHART_COLOR, ChartSkeleton } from '@/components/charts';
 import { Panel } from '@/components/layout/Panel';
 import { PROVIDER_KEYS, PROVIDERS } from '@/constants/providers';
 import { RESOURCE_STATUS_LABEL } from '@/constants/resourceStatus';
@@ -6,8 +6,6 @@ import type { ResourceSummary } from '@/services/dashboard';
 import { formatNumber } from '@/utils/format';
 
 import styles from '../DashboardPage.module.scss';
-
-import { ChartSkeleton } from './ChartSkeleton';
 
 /** 누적 순서: 정상(실행 중) → 주의(전환 중·오류) → 중지됨 */
 const SERIES = [

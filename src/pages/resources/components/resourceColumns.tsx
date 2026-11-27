@@ -1,5 +1,3 @@
-import { Link } from 'react-router';
-
 import { createDataTableColumnHelper } from '@/components/data/DataTable';
 import { StatusBadge } from '@/components/data/StatusBadge';
 import { UsageBar } from '@/components/data/UsageBar';
@@ -12,6 +10,8 @@ import type { Resource } from '@/types/resource';
 import { formatDateTime } from '@/utils/format';
 
 import styles from '../ResourceListPage.module.scss';
+
+import { ResourceDetailLink } from './ResourceDetailLink';
 
 /** 행 삭제 후 초점을 옮길 리소스명 링크를 찾는 선택자(설계서 8-1: 다음 행 → 이전 행 → 빈 상태 제목) */
 export const RESOURCE_LINK_SELECTOR = '[data-resource-link]';
@@ -40,15 +40,7 @@ export function createResourceColumns({ onEdit, onDelete }: ResourceColumnHandle
       sortFn: 'alphanumeric',
       // PC에서 가로 스크롤해도 어느 행인지 알 수 있도록 왼쪽에 고정한다.
       meta: { className: styles.colName, sticky: 'start' },
-      cell: ({ row }) => (
-        <Link
-          to={`/resources/${row.original.id}`}
-          className={styles.nameLink}
-          data-resource-link=""
-        >
-          {row.original.name}
-        </Link>
-      ),
+      cell: ({ row }) => <ResourceDetailLink resource={row.original} />,
     }),
     column.accessor('id', {
       header: '리소스 ID',

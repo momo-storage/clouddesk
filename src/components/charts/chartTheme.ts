@@ -8,6 +8,8 @@ export const CHART_COLOR = {
   gcp: 'var(--color-chart-gcp)',
   cpu: 'var(--color-chart-cpu)',
   memory: 'var(--color-chart-memory)',
+  // 디스크는 CPU·메모리와 다른 차트에 따로 그리므로 기존 범주색(청록) 하나를 함께 쓴다.
+  disk: 'var(--color-chart-gcp)',
   running: 'var(--color-success)',
   pending: 'var(--color-warning)',
   error: 'var(--color-danger)',

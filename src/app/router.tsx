@@ -5,7 +5,6 @@ import { RouteFallback } from '@/components/layout/RouteFallback';
 import { HOME_PATH } from '@/constants/navigation';
 import { GuidePage } from '@/pages/guide/GuidePage';
 import { NotFoundPage } from '@/pages/not-found/NotFoundPage';
-import { ResourceDetailPage } from '@/pages/resources/ResourceDetailPage';
 import { ResourceListPage } from '@/pages/resources/ResourceListPage';
 
 import type { RouteHandle } from './routeMeta';
@@ -38,9 +37,16 @@ export const router = createBrowserRouter([
           { index: true, element: <ResourceListPage /> },
           {
             path: ':resourceId',
-            element: <ResourceDetailPage />,
-            // Phase 2-5 이후 리소스 이름으로 바꾼다.
-            handle: { title: (params) => params.resourceId ?? '리소스 상세' } satisfies RouteHandle,
+            // 모니터링 차트(Recharts)를 쓰므로 대시보드처럼 라우트 단위로 나눠 불러온다.
+            lazy: async () => ({
+              Component: (await import('@/pages/resources/ResourceDetailPage')).ResourceDetailPage,
+            }),
+            // 제목·Breadcrumb은 리소스명. 불러오는 중이거나 없는 리소스면 그 상태를 이름으로 쓴다.
+            handle: {
+              title: (params, data) =>
+                data.resources.find((resource) => resource.id === params.resourceId)?.name ??
+                (data.status === 'loading' ? '리소스 상세' : '리소스를 찾을 수 없음'),
+            } satisfies RouteHandle,
           },
         ],
       },

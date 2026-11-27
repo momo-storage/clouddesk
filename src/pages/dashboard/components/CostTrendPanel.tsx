@@ -1,4 +1,4 @@
-import { CategoryBarChart, CHART_COLOR } from '@/components/charts';
+import { CategoryBarChart, CHART_COLOR, ChartSkeleton } from '@/components/charts';
 import { Panel } from '@/components/layout/Panel';
 import { PROVIDER_KEYS, PROVIDERS } from '@/constants/providers';
 import type { AsyncValue } from '@/hooks/useAsyncValue';
@@ -7,8 +7,6 @@ import type { CostRecord } from '@/types/cost';
 import { formatMonth, formatUsd } from '@/utils/format';
 
 import styles from '../DashboardPage.module.scss';
-
-import { ChartSkeleton } from './ChartSkeleton';
 
 const MONTH_COUNT = 6;
 

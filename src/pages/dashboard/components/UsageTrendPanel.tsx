@@ -1,4 +1,4 @@
-import { CHART_COLOR, MetricChart, type MetricRow } from '@/components/charts';
+import { CHART_COLOR, ChartSkeleton, MetricChart, type MetricRow } from '@/components/charts';
 import { Panel } from '@/components/layout/Panel';
 import { useAsyncValue } from '@/hooks/useAsyncValue';
 import { getAverageSeries } from '@/services/metricService';
@@ -6,8 +6,6 @@ import type { Resource } from '@/types/resource';
 import { formatPercent, formatTime } from '@/utils/format';
 
 import styles from '../DashboardPage.module.scss';
-
-import { ChartSkeleton } from './ChartSkeleton';
 
 const SERIES = [
   { key: 'cpu', label: 'CPU', color: CHART_COLOR.cpu },

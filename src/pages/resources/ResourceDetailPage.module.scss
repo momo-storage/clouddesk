@@ -1,0 +1,193 @@
+@use '@/styles' as *;
+
+// 제목 아래 요약: 상태 · 제공업체 · 리전 · ID
+.headerMeta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-5) var(--space-2);
+  align-items: center;
+}
+
+.metaDivider {
+  color: var(--color-text-tertiary);
+}
+
+.mono {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  overflow-wrap: anywhere;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+// 페이지 전체가 빈 상태일 때(없는 리소스·불러오기 실패) 카드 모양으로 감싼다.
+.panelEmpty {
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+// ---------------------------------------------------------------------------
+// 탭 패널 공통
+// ---------------------------------------------------------------------------
+.tabLayout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+// 개요: 기본 정보(넓게) + 현재 사용률. 1279px 이하는 한 열.
+.overviewGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+
+  @include bp(lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+// 모니터링 상단: 조회 기간 + 기준 시각
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.asOf {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.chartSummary {
+  max-width: 72ch;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.notice {
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-md);
+}
+
+.empty {
+  padding: var(--space-8) var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+// ---------------------------------------------------------------------------
+// 이름-값 목록(InfoList)
+// ---------------------------------------------------------------------------
+.infoList {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4) var(--space-6);
+}
+
+.infoListTwo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include bp(sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.infoLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.infoValue {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+  align-items: baseline;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.inlineSub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+// 현재 사용률: 항목마다 UsageBar(full)가 카드 너비를 채운다.
+.usageList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+// ---------------------------------------------------------------------------
+// 패널 안 표
+// ---------------------------------------------------------------------------
+.flushTable {
+  border: 0;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.tableSkeleton {
+  padding: var(--space-3) var(--space-4);
+}
+
+.colTime {
+  width: 150px;
+}
+
+.colSeverity {
+  width: 96px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+// 패널 제목 오른쪽에 두는 작은 선택 상자(라벨은 왼쪽)
+.inlineField {
+  flex-direction: row;
+  gap: var(--space-2);
+  align-items: center;
+  white-space: nowrap;
+}
+
+.inlineSelect {
+  width: 120px;
+  height: var(--control-height-sm);
+}
