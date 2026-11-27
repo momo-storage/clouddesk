@@ -10,7 +10,7 @@ import type { RouteHandle } from './routeMeta';
 
 /**
  * 라우트 정의. handle.title이 문서 제목과 Breadcrumb의 원천이다.
- * 2차 개발 화면 중 아직 구현하지 않은 화면(/costs, /users)은 라우트를 두지 않는다(404로 처리).
+ * 2차 개발 화면 중 아직 구현하지 않은 화면(/users)은 라우트를 두지 않는다(404로 처리).
  */
 export const router = createBrowserRouter([
   {
@@ -55,6 +55,13 @@ export const router = createBrowserRouter([
           Component: (await import('@/pages/monitoring/MonitoringPage')).MonitoringPage,
         }),
         handle: { title: '모니터링' } satisfies RouteHandle,
+      },
+      {
+        path: 'costs',
+        lazy: async () => ({
+          Component: (await import('@/pages/costs/CostsPage')).CostsPage,
+        }),
+        handle: { title: '비용 관리' } satisfies RouteHandle,
       },
       {
         path: 'guide',

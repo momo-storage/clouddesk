@@ -1,0 +1,144 @@
+@use '@/styles' as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+// 조회 조건(모니터링 화면과 같은 카드 모양)
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: flex-end;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  @include bp(sm) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.filterField {
+  width: 160px;
+
+  @include bp(sm) {
+    width: auto;
+  }
+}
+
+.unitNote {
+  margin-left: auto;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+
+  @include bp(sm) {
+    margin-left: 0;
+  }
+}
+
+// 지표 4열 → 2열(1279px 이하) → 1열(767px 이하), 대시보드와 같은 규칙
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include bp(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include bp(sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.kpiSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.panelEmpty {
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.chartSummary {
+  max-width: 72ch;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+// 내역 표 2개: 넓은 화면(약 1600px 이상)에서 나란히, 그보다 좁으면 한 열(표가 잘리지 않게)
+.tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 640px), 1fr));
+  gap: var(--space-5);
+
+  @include bp(sm) {
+    gap: var(--space-4);
+  }
+}
+
+.flushTable {
+  border: 0;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.serviceName {
+  margin-left: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+// 비중: 숫자 + 짧은 막대(막대는 시각 보조, 숫자가 같은 정보를 전달)
+.share {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.shareValue {
+  min-width: 4ch;
+  text-align: right;
+}
+
+.shareTrack {
+  position: relative;
+  width: 72px;
+  height: 6px;
+  overflow: hidden;
+  background-color: var(--color-surface-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.shareFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background-color: var(--color-primary);
+}

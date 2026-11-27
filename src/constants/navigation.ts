@@ -33,7 +33,7 @@ export const NAVIGATION: NavGroup[] = [
       { label: '대시보드', path: '/dashboard', icon: LayoutDashboard, enabled: true },
       { label: '리소스 관리', path: '/resources', icon: Server, enabled: true },
       { label: '모니터링', path: '/monitoring', icon: Activity, enabled: true },
-      { label: '비용 관리', path: '/costs', icon: Wallet, enabled: false },
+      { label: '비용 관리', path: '/costs', icon: Wallet, enabled: true },
     ],
   },
   {
