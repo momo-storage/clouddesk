@@ -217,9 +217,6 @@ const demoDataService = await load<typeof import('../src/services/demoDataServic
 const resourceService = await load<typeof import('../src/services/resourceService')>(
   '/src/services/resourceService.ts',
 );
-const userService = await load<typeof import('../src/services/userService')>(
-  '/src/services/userService.ts',
-);
 const eventService = await load<typeof import('../src/services/eventService')>(
   '/src/services/eventService.ts',
 );
@@ -304,25 +301,6 @@ check(
   state.events.every((e) => e.read) && readSnapshot()?.events.every((e) => e.read) === true,
   '모두 읽음이 반영되지 않았습니다',
 );
-
-const newUser = await userService.createUser({
-  name: '테스트',
-  email: 'Test.User@clouddesk.example',
-  department: 'QA팀',
-  role: 'viewer',
-  status: 'invited',
-});
-check(
-  newUser.email === 'test.user@clouddesk.example' && newUser.lastLoginAt === null,
-  '사용자 등록 값이 맞지 않습니다',
-);
-let selfDeleteRejected = false;
-try {
-  await userService.deleteUser(CURRENT_USER_ID);
-} catch {
-  selfDeleteRejected = true;
-}
-check(selfDeleteRejected, '현재 사용자 삭제가 거부되지 않았습니다');
 
 const reset = await demoDataService.resetDemoData();
 check(JSON.stringify(reset) === JSON.stringify(seed), '초기화 결과가 시드와 다릅니다');

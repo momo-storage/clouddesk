@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'react';
 
 import type { Resource, ResourceInput } from '@/types/resource';
-import type { User, UserInput } from '@/types/user';
 
 import type { DemoDataState } from './demoDataReducer';
 
@@ -14,9 +13,6 @@ export interface DemoDataActions {
   updateResource: (id: string, input: ResourceInput) => Promise<Resource>;
   deleteResources: (ids: string[]) => Promise<string[]>;
   markAllEventsRead: () => Promise<void>;
-  createUser: (input: UserInput) => Promise<User>;
-  updateUser: (id: string, input: UserInput) => Promise<User>;
-  deleteUser: (id: string) => Promise<void>;
   /** 이 브라우저에 저장된 변경을 지우고 시드 데이터로 되돌린다. */
   resetDemoData: () => Promise<void>;
 }

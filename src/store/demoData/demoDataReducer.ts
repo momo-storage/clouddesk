@@ -1,7 +1,6 @@
 import type { DemoDataSnapshot } from '@/services/storage';
 import type { CloudEvent } from '@/types/event';
 import type { Resource } from '@/types/resource';
-import type { User } from '@/types/user';
 
 export interface DemoDataState extends DemoDataSnapshot {
   /** loading: 최초 불러오기·초기화 중 / ready: 사용 가능 / error: 불러오기 실패 */
@@ -14,9 +13,7 @@ export type DemoDataAction =
   | { type: 'loadFailed' }
   | { type: 'resourceSaved'; resource: Resource; event: CloudEvent }
   | { type: 'resourcesDeleted'; ids: string[]; events: CloudEvent[] }
-  | { type: 'eventsRead'; ids: string[] }
-  | { type: 'userSaved'; user: User }
-  | { type: 'userDeleted'; id: string };
+  | { type: 'eventsRead'; ids: string[] };
 
 export const initialDemoDataState: DemoDataState = {
   status: 'loading',
@@ -63,9 +60,5 @@ export function demoDataReducer(state: DemoDataState, action: DemoDataAction): D
           action.ids.includes(event.id) ? { ...event, read: true } : event,
         ),
       };
-    case 'userSaved':
-      return { ...state, users: upsert(state.users, action.user) };
-    case 'userDeleted':
-      return { ...state, users: state.users.filter((user) => user.id !== action.id) };
   }
 }

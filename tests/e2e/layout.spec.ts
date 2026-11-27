@@ -101,7 +101,7 @@ test.describe('라우팅과 초점 관리', () => {
     await expect(page.getByRole('navigation', { name: '경로' })).toHaveCount(0);
   });
 
-  test('없는 주소와 2차 개발 화면 주소는 404 화면을 보여준다', async ({ page }) => {
+  test('없는 주소(제외한 사용자 관리 주소 포함)는 404 화면을 보여준다', async ({ page }) => {
     for (const path of ['/no-such-page', '/users']) {
       await gotoAndWait(page, path);
       await expect(

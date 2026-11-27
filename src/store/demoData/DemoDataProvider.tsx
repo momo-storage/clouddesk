@@ -3,7 +3,6 @@ import { useEffect, useMemo, useReducer, type ReactNode } from 'react';
 import * as demoDataService from '@/services/demoDataService';
 import * as eventService from '@/services/eventService';
 import * as resourceService from '@/services/resourceService';
-import * as userService from '@/services/userService';
 
 import { DemoDataContext, type DemoDataActions } from './demoDataContext';
 import { demoDataReducer, initialDemoDataState } from './demoDataReducer';
@@ -52,20 +51,6 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
       markAllEventsRead: async () => {
         const ids = await eventService.markAllEventsRead();
         dispatch({ type: 'eventsRead', ids });
-      },
-      createUser: async (input) => {
-        const user = await userService.createUser(input);
-        dispatch({ type: 'userSaved', user });
-        return user;
-      },
-      updateUser: async (id, input) => {
-        const user = await userService.updateUser(id, input);
-        dispatch({ type: 'userSaved', user });
-        return user;
-      },
-      deleteUser: async (id) => {
-        await userService.deleteUser(id);
-        dispatch({ type: 'userDeleted', id });
       },
       resetDemoData: async () => {
         dispatch({ type: 'loadStarted' });

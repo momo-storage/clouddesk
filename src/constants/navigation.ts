@@ -3,7 +3,6 @@ import {
   Component,
   LayoutDashboard,
   Server,
-  Users,
   Wallet,
   type LucideIcon,
 } from 'lucide-react';
@@ -14,7 +13,7 @@ export interface NavItem {
   icon: LucideIcon;
   /**
    * false면 사이드바에 표시하지 않는다.
-   * 2차 개발 화면은 구현 전까지 메뉴와 라우트를 모두 두지 않는다("준비 중" 화면을 만들지 않음).
+   * 구현하지 않은 화면은 메뉴와 라우트를 모두 두지 않는다("준비 중" 화면을 만들지 않음).
    */
   enabled: boolean;
 }
@@ -35,11 +34,6 @@ export const NAVIGATION: NavGroup[] = [
       { label: '모니터링', path: '/monitoring', icon: Activity, enabled: true },
       { label: '비용 관리', path: '/costs', icon: Wallet, enabled: true },
     ],
-  },
-  {
-    id: 'administration',
-    label: '관리',
-    items: [{ label: '사용자 관리', path: '/users', icon: Users, enabled: false }],
   },
   {
     id: 'design-system',

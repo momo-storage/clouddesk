@@ -10,7 +10,7 @@ import type { RouteHandle } from './routeMeta';
 
 /**
  * 라우트 정의. handle.title이 문서 제목과 Breadcrumb의 원천이다.
- * 2차 개발 화면 중 아직 구현하지 않은 화면(/users)은 라우트를 두지 않는다(404로 처리).
+ * 사용자 관리 화면은 개발 범위에서 제외했다(설계서 13장). 정의하지 않은 주소는 404 화면으로 처리한다.
  */
 export const router = createBrowserRouter([
   {
