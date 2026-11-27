@@ -30,3 +30,6 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# 작업 단계 확인용 캡처(루트의 phase*.png만 제외)
+/phase*.png
