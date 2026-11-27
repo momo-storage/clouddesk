@@ -53,11 +53,6 @@ const usdFormat = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
-const usdCompactFormat = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  maximumFractionDigits: 0,
-});
 
 /** 천 단위 구분 정수 */
 export function formatNumber(value: number): string {
@@ -72,9 +67,4 @@ export function formatPercent(value: number): string {
 /** USD 소수점 2자리(예: $10,857.17) */
 export function formatUsd(value: number): string {
   return usdFormat.format(value);
-}
-
-/** 차트 축용 USD 정수(예: $4,720) */
-export function formatUsdCompact(value: number): string {
-  return usdCompactFormat.format(value);
 }
