@@ -1,0 +1,90 @@
+@use '@/styles' as *;
+
+.dataTable {
+  min-width: 0;
+}
+
+// 선택 열: 체크박스만 들어가므로 좁게 고정한다.
+// min-width도 주어야 표가 좁아질 때 열이 줄지 않는다(왼쪽 고정 열이 이 폭(44px)만큼 떨어져 붙는다).
+.selectCell {
+  width: 44px;
+  min-width: 44px;
+  padding-right: 0;
+}
+
+// ---------------------------------------------------------------------------
+// 고정 열(열 meta.sticky). PC(1280px 이상)에서 표가 가로로 넘칠 때 식별 열과 작업 열을 계속 보이게 한다.
+// 1280px 미만에서는 화면이 좁아 고정 열이 내용을 가리므로 고정하지 않는다.
+// - 본문 셀 배경은 행(tr)의 배경을 그대로 받아(inherit) 호버·선택 상태가 고정 열에도 같이 보인다.
+// - 경계선은 border 대신 box-shadow로 그린다(sticky 셀에서 border-collapse 경계가 스크롤과 함께 사라지는 문제 방지).
+// ---------------------------------------------------------------------------
+@include bp-up(lg) {
+  .stickySelect,
+  .stickyStart,
+  .stickyEnd {
+    position: sticky;
+    z-index: 1;
+  }
+
+  td.stickySelect,
+  td.stickyStart,
+  td.stickyEnd {
+    background-color: inherit;
+  }
+
+  .stickySelect {
+    left: 0;
+  }
+
+  .stickyStart {
+    left: 0;
+    box-shadow: inset calc(-1 * var(--border-width)) 0 0 var(--color-border);
+  }
+
+  // 선택 열(44px) 바로 오른쪽에 붙인다.
+  .stickyAfterSelect {
+    left: 44px;
+  }
+
+  .stickyEnd {
+    right: 0;
+    box-shadow: inset var(--border-width) 0 0 var(--color-border);
+  }
+}
+
+// 표 아래: 표시 범위 · 페이지당 행 수 · 페이지 이동
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.range {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.footerControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: center;
+}
+
+// Select의 라벨을 위가 아닌 왼쪽에 둔다(표 아래 한 줄 배치).
+.pageSize {
+  flex-direction: row;
+  gap: var(--space-2);
+  align-items: center;
+  white-space: nowrap;
+}
+
+.pageSizeSelect {
+  width: 88px;
+  height: var(--control-height-sm);
+}

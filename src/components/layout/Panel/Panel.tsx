@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react';
+import { useId, type ReactNode, type Ref } from 'react';
 
 import { cn } from '@/utils/cn';
 
@@ -13,6 +13,11 @@ export interface PanelProps {
   actions?: ReactNode;
   /** 표처럼 가장자리까지 채우는 내용은 안쪽 여백을 없앤다. */
   flush?: boolean;
+  /**
+   * 제목에 초점을 옮겨야 할 때(예: 선택 삭제 후 목록 제목) 연결한다(설계서 8-1).
+   * 연결하면 제목이 tabIndex=-1을 가져 스크립트로만 초점을 받는다.
+   */
+  headingRef?: Ref<HTMLHeadingElement>;
   className?: string;
   children: ReactNode;
 }
@@ -26,6 +31,7 @@ export function Panel({
   description,
   actions,
   flush = false,
+  headingRef,
   className,
   children,
 }: PanelProps) {
@@ -35,7 +41,12 @@ export function Panel({
     <section aria-labelledby={headingId} className={cn(styles.panel, className)}>
       <div className={styles.header}>
         <div className={styles.heading}>
-          <h2 id={headingId} className={styles.title}>
+          <h2
+            ref={headingRef}
+            id={headingId}
+            tabIndex={headingRef ? -1 : undefined}
+            className={styles.title}
+          >
             {title}
           </h2>
           {description && <p className={styles.description}>{description}</p>}

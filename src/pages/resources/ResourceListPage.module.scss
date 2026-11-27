@@ -1,0 +1,146 @@
+@use '@/styles' as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.resultStatus {
+  font-variant-numeric: tabular-nums;
+}
+
+// 선택한 행이 있을 때 목록 제목 오른쪽에 나타나는 일괄 작업
+.selectionBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.selectionCount {
+  margin-right: var(--space-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+// 패널 안에 꽉 차는 표: 패널 테두리와 겹치지 않게 표 영역 자체의 테두리를 없앤다(대시보드 표와 같은 방식).
+.table [role='region'] {
+  border: 0;
+  border-radius: 0;
+}
+
+// ---------------------------------------------------------------------------
+// 표 셀
+// ---------------------------------------------------------------------------
+// 목록 행은 한 줄(40px)로 두고, OS·지역명·인스턴스 사양 같은 보조 정보는 상세 화면에서 보여준다.
+.colName {
+  width: 200px;
+  max-width: 200px;
+}
+
+// 리소스명은 한 줄 말줄임. 전체 이름은 상세 화면 제목에서 확인한다(설계서 7-4).
+.nameLink {
+  @include truncate;
+
+  display: block;
+  max-width: 184px;
+  font-weight: var(--font-weight-medium);
+}
+
+.ipDivider {
+  color: var(--color-text-tertiary);
+}
+
+.mono {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.colUsage {
+  width: 140px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+// 작은 버튼(28px)이 들어가도 행 높이가 40px을 넘지 않도록 위아래 여백만 줄인다.
+.colActions {
+  width: 1%;
+  padding-block: var(--space-1-5);
+  white-space: nowrap;
+}
+
+.rowActions {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+
+// ---------------------------------------------------------------------------
+// 등록·수정 폼
+// ---------------------------------------------------------------------------
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+
+  @include bp(sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.monoInput {
+  font-family: var(--font-family-mono);
+}
+
+.formError {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+  border-radius: var(--radius-md);
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 삭제 확인
+// ---------------------------------------------------------------------------
+.deleteName {
+  font-weight: var(--font-weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.deleteList {
+  padding-left: var(--space-5);
+  margin-top: var(--space-2);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  list-style: disc;
+}
+
+.deleteNote {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
