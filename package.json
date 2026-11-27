@@ -18,8 +18,9 @@
     "format:check": "prettier --check .",
     "check:contrast": "node scripts/check-contrast.ts",
     "check:data": "node scripts/check-mock-data.ts",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e": "playwright test --project=chromium",
+    "test:e2e:ui": "playwright test --project=chromium --ui",
+    "test:e2e:a11y": "playwright test --project=a11y"
   },
   "dependencies": {
     "@tanstack/react-table": "9.3.1",

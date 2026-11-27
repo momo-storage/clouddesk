@@ -1,5 +1,6 @@
-import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+
+import { expectNoAxeViolations } from './support/axe';
 
 /**
  * 대시보드(Phase 3-1). 수치가 저장된 데이터에서 계산되는지, 차트 대체 정보·이동 인터랙션·접근성을 확인한다.
@@ -149,10 +150,7 @@ test('모든 차트는 요약 문장과 펼칠 수 있는 대체 데이터 표�
   const hiddenCharts = await page.locator('[aria-hidden="true"] .recharts-surface').count();
   expect(hiddenCharts).toBe(3);
 
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
+  await expectNoAxeViolations(page);
 });
 
 test('대시보드 지연 로딩: 처음 열 때 콘솔 경고·오류가 없다', async ({ page }) => {

@@ -19,19 +19,21 @@ npm run dev          # 개발 서버: http://localhost:5173
 
 ## 주요 스크립트
 
-| 명령                     | 설명                                                                      |
-| ------------------------ | ------------------------------------------------------------------------- |
-| `npm run dev`            | Vite 개발 서버 실행                                                       |
-| `npm run build`          | 타입 검사 후 프로덕션 빌드(`dist/`)                                       |
-| `npm run preview`        | 빌드 결과 미리보기: http://localhost:4173                                 |
-| `npm run typecheck`      | TypeScript 타입 검사                                                      |
-| `npm run lint`           | ESLint 검사                                                               |
-| `npm run format`         | Prettier로 서식 정리 (`format:check`는 검사만)                            |
-| `npm run test:e2e`       | Playwright E2E 및 axe 자동 접근성 검사                                    |
-| `npm run check:contrast` | 색상 토큰의 명도 대비 검사 (`-- --write`로 `docs/color-contrast.md` 갱신) |
-| `npm run check:data`     | Mock 데이터 규칙(수량·관계·결정성)과 데이터 서비스 등록·수정·삭제 검사    |
+| 명령                     | 설명                                                                   |
+| ------------------------ | ---------------------------------------------------------------------- |
+| `npm run dev`            | Vite 개발 서버 실행                                                    |
+| `npm run build`          | 타입 검사 후 프로덕션 빌드(`dist/`)                                    |
+| `npm run preview`        | 빌드 결과 미리보기: http://localhost:4173                              |
+| `npm run typecheck`      | TypeScript 타입 검사                                                   |
+| `npm run lint`           | ESLint 검사                                                            |
+| `npm run format`         | Prettier로 서식 정리 (`format:check`는 검사만)                         |
+| `npm run test:e2e`       | Playwright 주요 기능·반응형 테스트                                     |
+| `npm run check:data`     | Mock 데이터 규칙(수량·관계·결정성)과 데이터 서비스 등록·수정·삭제 검사 |
+| `npm run test:e2e:a11y`  | (선택) 기능 테스트 + axe 자동 접근성 검사                              |
+| `npm run check:contrast` | (선택) 색상 토큰의 명도 대비 검사 (`-- --write`로 보고서 갱신)         |
 
 E2E 테스트는 Chrome(Chromium)을 기준으로 실행합니다. 처음 실행하기 전에 브라우저를 설치합니다.
+"(선택)" 표시 스크립트는 필수 검증 범위에서 제외한 검사로, 필요할 때만 실행합니다.
 
 ```bash
 npx playwright install chromium

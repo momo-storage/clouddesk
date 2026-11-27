@@ -1,21 +1,15 @@
-import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+
+import { expectNoAxeViolations } from './support/axe';
 
 /**
  * 공통 UI 컴포넌트(Phase 2-4) 동작 검증. UI 컴포넌트 가이드 화면의 예시를 대상으로 한다.
- * axe 통과는 자동 검사 가능한 항목에 한정되며, 접근성 준수 여부를 확정하지 않는다.
+ * axe 검사는 선택 실행이다(npm run test:e2e:a11y, support/axe.ts 참고).
  */
 
 /** 알림(Toast) 영역. 화면에는 표의 선택 개수 안내 등 다른 status 영역도 있다. */
 const toastRegion = (page: Page) =>
   page.locator('[role="status"]').filter({ has: page.locator('ul') });
-
-const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
-
-async function expectNoAxeViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
-  expect(results.violations).toEqual([]);
-}
 
 test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -24,7 +18,7 @@ test.beforeEach(async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'UI 컴포넌트 가이드' })).toBeVisible();
 });
 
-test('가이드 화면에 axe 자동 검사 위반과 콘솔 오류가 없다', async ({ page }) => {
+test('가이드 화면에 콘솔 오류가 없다(axe는 선택 실행)', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await expectNoAxeViolations(page);

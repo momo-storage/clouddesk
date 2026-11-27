@@ -1,10 +1,11 @@
-import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+
+import { expectNoAxeViolations } from './support/axe';
 
 /**
  * 환경 검증용 스모크 테스트.
- * 빌드 결과가 렌더링되는지, 콘솔 오류가 없는지, axe 자동 검사(WCAG 2.2 AA 태그)가 통과하는지 확인한다.
- * axe 통과는 자동 검사 가능한 항목에 한정되며, 접근성 준수 여부를 확정하지 않는다.
+ * 빌드 결과가 렌더링되는지, 콘솔 오류가 없는지 확인한다.
+ * axe 자동 검사는 선택 실행 프로젝트(a11y)에서만 돌린다(@a11y 태그, 기본 실행에서 제외).
  */
 test('첫 화면이 오류 없이 렌더링된다', async ({ page }) => {
   const consoleErrors: string[] = [];
@@ -22,14 +23,10 @@ test('첫 화면이 오류 없이 렌더링된다', async ({ page }) => {
   expect(consoleErrors).toEqual([]);
 });
 
-test('첫 화면에 axe 자동 검사 위반이 없다', async ({ page }) => {
+test('첫 화면에 axe 자동 검사 위반이 없다', { tag: '@a11y' }, async ({ page }) => {
   await page.goto('/');
   // React 렌더링 전에 검사하면 빈 #root를 검사하고 통과하므로, 콘텐츠가 나타난 뒤 검사한다.
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-
-  expect(results.violations).toEqual([]);
+  await expectNoAxeViolations(page);
 });

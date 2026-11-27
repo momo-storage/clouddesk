@@ -1,5 +1,6 @@
-import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+
+import { expectNoAxeViolations } from './support/axe';
 
 /**
  * Mock 데이터 유지·초기화와 헤더 알림 연결(Phase 2-5).
@@ -73,7 +74,7 @@ test('헤더 알림: 최근 이벤트 5건을 보여주고, 모두 읽음은 저
   await expect(items.first()).toContainText(stored?.events[0]?.message ?? '');
   await expect(items.first()).toContainText('읽지 않음');
   await expect(panel).toContainText(`전체 ${String(stored?.events.length)}건 중 최근 5건`);
-  await expectNoAxe(page);
+  await expectNoAxeViolations(page);
 
   const markAll = panel.getByRole('button', { name: '모두 읽음' });
   await markAll.click();
@@ -130,13 +131,6 @@ test('초기화는 사이드바 접기 설정을 지우지 않는다', async ({ 
   await page.reload();
   await expect(page.getByRole('button', { name: '사이드바 펼치기' })).toBeVisible();
 });
-
-async function expectNoAxe(page: Page) {
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
-}
 
 test('375px: 알림 패널이 화면 밖으로 나가지 않는다', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });

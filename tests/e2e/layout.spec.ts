@@ -1,18 +1,12 @@
-import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+
+import { expectNoAxeViolations } from './support/axe';
 
 /**
  * 공통 레이아웃(Phase 2-3) 검증.
  * 키보드 동작은 Tab을 여러 번 누르는 대신 대상 요소에 초점을 둔 뒤 키를 누르는 방식으로 확인한다.
  * 메뉴 구성이 바뀌어도 테스트가 Tab 순서에 묶여 깨지지 않게 하기 위해서다.
  */
-
-const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
-
-async function expectNoAxeViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
-  expect(results.violations).toEqual([]);
-}
 
 async function gotoAndWait(page: Page, path: string) {
   await page.goto(path);
